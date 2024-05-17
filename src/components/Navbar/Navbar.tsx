@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import { Button, buttonVariants } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -27,6 +28,12 @@ const Navbar = async () => {
           </Link>
 
           <div className="flex items-center gap-3 relative">
+            <Link
+              href="/store"
+              className={cn(buttonVariants({ variant: "outline" }), "h-8")}
+            >
+              Visit Store
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger>
                 {!user ? (

@@ -11,44 +11,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
-
-const TOPSELLERS = [
-  {
-    id: 1,
-    title: "Green Tea Moisturizer",
-    price: 12.99,
-    imgSrc: "/product1.jpg",
-    reviews: 234,
-  },
-  {
-    id: 2,
-    title: "Anti-Aging Serum",
-    price: 11.99,
-    imgSrc: "/product4.jpg",
-    reviews: 652,
-  },
-  {
-    id: 3,
-    title: "Skin Brightening Toner",
-    price: 8.99,
-    imgSrc: "/product6.jpg",
-    reviews: 121,
-  },
-  {
-    id: 4,
-    title: "Mineralized Sunscreen SPF 60 Kit",
-    price: 22.99,
-    imgSrc: "/product7.jpg",
-    reviews: 322,
-  },
-];
+import { TOPSELLERS } from "@/components/data";
 
 export default function Home() {
   return (
     <div>
       <section
         style={{
-          backgroundImage: 'url("/product5.jpg")',
+          backgroundImage: 'url("/hero-bg.webp")',
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
@@ -86,7 +56,7 @@ export default function Home() {
               <div className="flex gap-2 items-center">
                 <p>— Mia S.</p>
                 <Avatar>
-                  <AvatarImage src="/user-2.png" />
+                  <AvatarImage src="/user-2.webp" />
                   <AvatarFallback>MS</AvatarFallback>
                 </Avatar>
               </div>
@@ -114,7 +84,7 @@ export default function Home() {
               <div className="flex gap-2 items-center">
                 <p>— Mia S.</p>
                 <Avatar>
-                  <AvatarImage src="/user-3.png" />
+                  <AvatarImage src="/user-3.webp" />
                   <AvatarFallback>MS</AvatarFallback>
                 </Avatar>
               </div>
