@@ -4,13 +4,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { CircleUser, ShoppingBag } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { CircleUser, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import MaxWidthWrapper from "../MaxWidthWrapper";
-import { Button, buttonVariants } from "../ui/button";
-import { cn } from "@/lib/utils";
+import { buttonVariants } from "../ui/button";
+import Cart from "./Cart";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -28,16 +29,10 @@ const Navbar = async () => {
           </Link>
 
           <div className="flex items-center gap-3 relative">
-            <Link
-              href="/store"
-              className={cn(buttonVariants({ variant: "outline" }), "h-8")}
-            >
-              Visit Store
-            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger>
                 {!user ? (
-                  <CircleUser />
+                  <Menu />
                 ) : (
                   <p
                     className={buttonVariants({
@@ -50,6 +45,17 @@ const Navbar = async () => {
               </DropdownMenuTrigger>
               {!user ? (
                 <DropdownMenuContent className="z-[200]">
+                  <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
+                    <Link
+                      href="/store"
+                      className={cn(
+                        buttonVariants({ variant: "outline" }),
+                        "h-8"
+                      )}
+                    >
+                      Visit Store
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                     <Link
                       href="/api/auth/login"
@@ -77,6 +83,17 @@ const Navbar = async () => {
                 <DropdownMenuContent className="z-[200]">
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                     <Link
+                      href="/store"
+                      className={cn(
+                        buttonVariants({ variant: "outline" }),
+                        "h-8"
+                      )}
+                    >
+                      Visit Store
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
+                    <Link
                       href="/api/auth/logout"
                       className={buttonVariants({
                         size: "sm",
@@ -89,14 +106,7 @@ const Navbar = async () => {
                 </DropdownMenuContent>
               )}
             </DropdownMenu>
-            <ShoppingBag className="text-zinc-600" size="30px" />
-            <p
-              className="w-6 h-5 rounded-full flex items-center font-bold bg-custom-purple
-            justify-center text-[11px] text-white absolute 
-            top-[20px] right-[3px]"
-            >
-              1
-            </p>
+            <Cart />
           </div>
         </div>
       </MaxWidthWrapper>

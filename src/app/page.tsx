@@ -1,17 +1,8 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { Check, DollarSign, SquarePlus, Star } from "lucide-react";
-import HeroTitle from "./HeroTitle";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
-import { TOPSELLERS } from "@/components/data";
+import { Check, Star } from "lucide-react";
+import HeroTitle from "./HeroTitle";
+import ProductCarousel from "./ProductCarousel";
 
 export default function Home() {
   return (
@@ -96,76 +87,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-[600px] mx-auto py-40 p-5">
-        <div className="w-full flex flex-col items-center mb-20">
-          <h3 className="text-3xl font-bold gra-p-b">Our Top Sellers!</h3>
-        </div>
-        <Carousel>
-          <CarouselContent>
-            {TOPSELLERS.map((product) => (
-              <CarouselItem key={product.id} className="w-full h-[700px]">
-                <img
-                  src={product.imgSrc}
-                  className="w-full h-[500px] object-cover rounded-lg"
-                  alt={product.title}
-                  loading="lazy"
-                />
-                {/* <Image
-                  src={product.imgSrc}
-                  alt={product.title}
-                  objectFit="cover"
-                  className="w-full h-[500px] rounded-lg"
-                  width={2000}
-                  height={1200}
-                /> */}
-                <div className="flex flex-col items-center py-3 gap-2">
-                  <h4 className="font-bold text-xl text-zinc-700">
-                    {product.title}
-                  </h4>
-                  <div className="flex items-center mx-auto">
-                    <Star className="text-yellow-300 fill-yellow-200" />
-                    <Star className="text-yellow-300 fill-yellow-200" />
-                    <Star className="text-yellow-300 fill-yellow-200" />
-                    <Star className="text-yellow-300 fill-yellow-200" />
-                    <Star className="text-yellow-300 fill-yellow-200" />
-                  </div>
-                  <p className="ml-2 flex items-center gap-2">
-                    <Check className="text-green-600" /> {product.reviews}{" "}
-                    Reviews
-                  </p>
-                  <p className="flex items-center font-semibold text-lg">
-                    <DollarSign size="20" /> {product.price}
-                  </p>
-                  <Button className="flex items-center gap-2 bg-custom-purple font-bold text-lg">
-                    Add to Cart
-                    <SquarePlus />
-                  </Button>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="xs:hidden sm:inline" />
-          <CarouselNext className="xs:hidden sm:inline " />
-        </Carousel>
-      </section>
-
-      {/* <section className="w-full border grainy-light p-5 py-40">
-        <div className="text-section-max-w">
-          <h2 className="xs:text-3xl text-4xl gra-p-b font-semibold">
-            PetalSoft & Philosophy
-          </h2>
-          <p className="text-medium">
-            PetalSoft is where nature’s purity meets contemporary beauty. Our
-            mission is to harmonize ethical sourcing with the art of self-care,
-            offering a range of products from revitalizing skincare to
-            captivating perfumes. Each creation is a testament to our dedication
-            to quality, inclusivity, and the celebration of individual beauty.
-            We believe in nurturing the soul’s true radiance, ensuring every
-            product not only enhances your natural allure but also aligns with
-            our core values of sustainability and compassion.
-          </p>
-        </div>
-      </section> */}
+      <ProductCarousel />
 
       <section className="w-full border grainy-light p-5 py-40">
         <div className="text-section-max-w">

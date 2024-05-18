@@ -73,6 +73,10 @@
   .gra-y-a {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-amber-500;
   }
+
+  .c-button {
+    @apply bg-custom-purple gap-2 font-bold text-lg;
+  }
 }
 
 .grainy-light {
