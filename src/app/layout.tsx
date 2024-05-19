@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const recursive = Recursive({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Navbar />
         <Providers>{children}</Providers>
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

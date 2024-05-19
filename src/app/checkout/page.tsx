@@ -10,6 +10,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Confetti from "react-dom-confetti";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { useMutation } from "@tanstack/react-query";
+import { createCheckoutSession } from "./actions";
+import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
 
 const CheckOutPage = () => {
   const { data: addedProducts } = useFetchProduct();
@@ -17,15 +22,14 @@ const CheckOutPage = () => {
     cartItems: state.cartItems,
     initializeCart: state.initializeCart,
   }));
-
+  const { user } = useKindeBrowserClient();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
+  const router = useRouter();
   useEffect(() => {
     if (cartItems.length > 0 && !showConfetti) {
       setShowConfetti(true);
-      // Set a timeout to hide the confetti after a few seconds
       const timer = setTimeout(() => setShowConfetti(false), 3000);
-      // Clear the timeout if the component unmounts
       return () => clearTimeout(timer);
     }
   }, [cartItems.length, showConfetti]);
@@ -57,10 +61,30 @@ const CheckOutPage = () => {
   }, 0);
   const tax = total * 0.0975;
 
-  let user = false;
+  const { mutate: createPaymentSession } = useMutation({
+    mutationKey: ["get-checkout-session"],
+    mutationFn: createCheckoutSession,
+    onSuccess: ({ url }) => {
+      if (url) router.push(url);
+      else throw new Error("Unable to retrieve payment URL.");
+    },
+    onError: () => {
+      toast({
+        title: "Something went wrong",
+        description: "There was an error on our end. Please try again.",
+        variant: "destructive",
+        duration: 3000,
+      });
+    },
+  });
 
   const handleCheckout = () => {
     if (user) {
+      createPaymentSession({
+        cartItems: cartProductDetails,
+        tax: tax,
+        total: total,
+      });
     } else {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
       setIsLoginModalOpen(true);

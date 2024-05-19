@@ -54,8 +54,18 @@ model Order {
   updatedAt         DateTime         @updatedAt
   shippingAddress   ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
   shippingAddressId String?
-  billingAddress    BillingAddress?  @relation(fields: [billingAddressId], references: [id])
-  billingAddressId  String?
+}
+
+model LineItem {
+  id        Int      @id @default(autoincrement())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId Int
+  product   PRODUCTS @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Create a new Address model
@@ -69,28 +79,4 @@ model ShippingAddress {
   state       String?
   phoneNumber String?
   Order       Order[]
-}
-
-model BillingAddress {
-  id          String  @id @default(cuid())
-  name        String
-  street      String
-  city        String
-  postalCode  String
-  country     String
-  state       String?
-  phoneNumber String?
-  Order       Order[]
-}
-
-model LineItem {
-  id        Int      @id @default(autoincrement())
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id])
-  productId Int
-  product   PRODUCTS @relation(fields: [productId], references: [id])
-  quantity  Int
-  price     Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
