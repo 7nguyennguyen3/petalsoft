@@ -7,7 +7,6 @@ import { db } from "@/db";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
-    const response = JSON.parse(body);
     const signature = headers().get("stripe-signature");
 
     if (!signature) {
@@ -15,7 +14,7 @@ export async function POST(request: NextRequest) {
     }
 
     const event = stripe.webhooks.constructEvent(
-      response,
+      body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
