@@ -8,14 +8,35 @@ export async function POST(request: NextRequest) {
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
-  let event = stripe.webhooks.constructEvent(
-    body,
-    signature!,
-    "whsec_06PcbxzGn9803a91u1UgdCtuQswTy6Al"
-  );
+  let event = stripe.webhooks.constructEvent(body, signature!, webhookSecret);
 
   switch (event?.type) {
-    case "payment_intent.succeeded":
+    case "checkout.session.completed":
+      const userId = event.data.object.metadata!.userId;
+      const userEmail = event.data.object.metadata!.email;
+
+      let userIdToUse = userId;
+
+      if (!userId) {
+        throw new Error("The userId is undefined.");
+      }
+
+      const userExists = await db.user.findUnique({
+        where: {
+          id: userId,
+        },
+      });
+
+      if (!userExists) {
+        const newUser = await db.user.create({
+          data: {
+            id: userId,
+            email: userEmail,
+          },
+        });
+        userIdToUse = newUser.id;
+      }
+
       console.log(event.data.object);
       const eventData = JSON.stringify(event.data.object);
       await db.testStripeWebhook.create({
@@ -24,7 +45,7 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      const shippingAddress = event.data.object.shipping;
+      const shippingAddress = event.data.object.shipping_details;
 
       const existingShippingAddress = await db.shippingAddress.findFirst({
         where: {
@@ -60,9 +81,9 @@ export async function POST(request: NextRequest) {
       await db.order.create({
         data: {
           status: "awaiting_shipment",
-          total: event.data.object.amount_received,
+          total: event.data.object.amount_total! / 100,
           isPaid: true,
-          userId: event.data.object.metadata.userId,
+          userId: userIdToUse,
           shippingAddressId: shippingAddressId,
         },
       });

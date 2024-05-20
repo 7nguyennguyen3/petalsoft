@@ -104,6 +104,7 @@ export const createCheckoutSession = async ({
     shipping_address_collection: { allowed_countries: ["US"] },
     metadata: {
       userId: user.id,
+      email: user.email,
       cartItems: cartItemsJson,
     },
     line_items: [{ price: price.id, quantity: 1 }],
