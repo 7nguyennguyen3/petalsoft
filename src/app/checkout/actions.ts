@@ -25,6 +25,14 @@ export const createCheckoutSession = async ({
   tax,
   total,
 }: CheckoutProps) => {
+  const cartItemsJson = JSON.stringify(
+    cartItems.map((item) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+      // Include any other properties you need
+    }))
+  );
+
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -96,7 +104,7 @@ export const createCheckoutSession = async ({
     shipping_address_collection: { allowed_countries: ["US"] },
     metadata: {
       userId: user.id,
-      // orderId: newOrder.id,
+      cartItems: cartItemsJson,
     },
     line_items: [{ price: price.id, quantity: 1 }],
   });

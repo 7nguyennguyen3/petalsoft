@@ -45,6 +45,7 @@ model User {
 model Order {
   id                String           @id @default(uuid())
   userId            String
+  email             String?
   User              User             @relation(fields: [userId], references: [id])
   lineItems         LineItem[]
   total             Float
@@ -79,4 +80,9 @@ model ShippingAddress {
   state       String?
   phoneNumber String?
   Order       Order[]
+}
+
+model TestStripeWebhook {
+  id     String @id @default(cuid())
+  object Json?
 }
