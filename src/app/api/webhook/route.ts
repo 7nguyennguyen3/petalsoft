@@ -14,6 +14,13 @@ export async function POST(request: NextRequest) {
     case "checkout.session.completed":
       const userId = event.data.object.metadata!.userId;
       const userEmail = event.data.object.metadata!.email;
+      const cartItems = JSON.parse(event.data.object.metadata!.cartItems);
+
+      // const cartItems = [
+      //   { productId: 5, quantity: 14 },
+      //   { productId: 2, quantity: 12 },
+      //   { productId: 3, quantity: 5 },
+      // ];
 
       let userIdToUse = userId;
 
@@ -37,13 +44,12 @@ export async function POST(request: NextRequest) {
         userIdToUse = newUser.id;
       }
 
-      console.log(event.data.object);
-      const eventData = JSON.stringify(event.data.object);
-      await db.testStripeWebhook.create({
-        data: {
-          object: JSON.parse(eventData),
-        },
-      });
+      // const eventData = JSON.stringify(event.data.object);
+      // await db.testStripeWebhook.create({
+      //   data: {
+      //     object: JSON.parse(eventData),
+      //   },
+      // });
 
       const shippingAddress = event.data.object.shipping_details;
 
@@ -78,7 +84,7 @@ export async function POST(request: NextRequest) {
         shippingAddressId = newShippingAddress.id;
       }
 
-      await db.order.create({
+      const order = await db.order.create({
         data: {
           status: "awaiting_shipment",
           total: event.data.object.amount_total! / 100,
@@ -88,7 +94,30 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // const cartItems = JSON.parse(event.data.object.metadata.cartItemsJson);
+      for (const item of cartItems) {
+        const product = await db.pRODUCTS.findUnique({
+          where: {
+            id: item.productId,
+          },
+        });
+
+        await db.lineItem.create({
+          data: {
+            orderId: order.id,
+            productId: item.productId,
+            quantity: item.quantity,
+            price: product!.price,
+          },
+        });
+
+        const newStock = product!.stock - item.quantity;
+        await db.pRODUCTS.update({
+          where: { id: item.productId },
+          data: {
+            stock: newStock,
+          },
+        });
+      }
 
       break;
     // handle other type of stripe events
