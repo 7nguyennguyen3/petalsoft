@@ -1,8 +1,8 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import FinanceTable from "./FinanceTable";
-import OrdersTable from "./OrdersTable";
 import ProductsTable from "./ProductsTable";
 import { notFound } from "next/navigation";
+import NewOrdersTable from "./NewOrdersTable";
 
 const AdminTable = async () => {
   const { getUser } = getKindeServerSession();
@@ -15,7 +15,7 @@ const AdminTable = async () => {
   return (
     <div className="py-40 min-h-screen">
       <FinanceTable />
-      <OrdersTable />
+      <NewOrdersTable />
       <ProductsTable />
     </div>
   );
