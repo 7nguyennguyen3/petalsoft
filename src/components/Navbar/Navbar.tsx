@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { CircleUser, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import MaxWidthWrapper from "../MaxWidthWrapper";
@@ -25,7 +25,7 @@ const Navbar = async () => {
       <MaxWidthWrapper>
         <div className="flex h-14 items-center justify-between border-b border-zinc-200">
           <Link href="/" className="pt-2">
-            <Image src="/logo.png" alt="logo" width={100} height={100} />
+            <Image src="/logo.webp" alt="logo" width={100} height={100} />
           </Link>
 
           <div className="flex items-center gap-3 relative">
@@ -81,6 +81,19 @@ const Navbar = async () => {
                 </DropdownMenuContent>
               ) : (
                 <DropdownMenuContent className="z-[200]">
+                  {user.email === process.env.ADMIN_EMAIL && (
+                    <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
+                      <Link
+                        href="/dashboard"
+                        className={cn(
+                          buttonVariants({ variant: "outline" }),
+                          "h-8"
+                        )}
+                      >
+                        Admin Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                     <Link
                       href="/store"
@@ -90,6 +103,17 @@ const Navbar = async () => {
                       )}
                     >
                       Visit Store
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
+                    <Link
+                      href="/my-order"
+                      className={buttonVariants({
+                        size: "sm",
+                        variant: "ghost",
+                      })}
+                    >
+                      My Order
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">

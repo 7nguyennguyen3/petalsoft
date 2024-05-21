@@ -71,3 +71,10 @@ export interface PRODUCTS {
   category?: string;
   stock?: number;
 }
+
+export const productIdTitle = [
+  ...TOPSELLERS,
+  ...COSMETICS.filter(
+    (item) => !TOPSELLERS.find((topSeller) => topSeller.id === item.id)
+  ),
+].map(({ id, title }) => ({ id, title }));

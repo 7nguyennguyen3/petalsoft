@@ -3,7 +3,6 @@
 import { db } from "@/db";
 import { stripe } from "@/lib/stripe";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Order } from "@prisma/client";
 
 interface cartProductDetails {
   title: string | undefined;
@@ -29,7 +28,6 @@ export const createCheckoutSession = async ({
     cartItems.map((item) => ({
       productId: item.productId,
       quantity: item.quantity,
-      // Include any other properties you need
     }))
   );
 
@@ -52,35 +50,6 @@ export const createCheckoutSession = async ({
       },
     });
   }
-
-  // const newOrder = await db.order.create({
-  //   data: {
-  //     userId: user.id,
-  //     total: total + tax,
-  //     status: "awaiting_shipment",
-  //   },
-  // });
-
-  // for (const item of cartItems) {
-  //   if (
-  //     item.title &&
-  //     item.imgSrc &&
-  //     item.price &&
-  //     item.productId &&
-  //     item.quantity
-  //   ) {
-  //     await db.lineItem.create({
-  //       data: {
-  //         orderId: newOrder.id,
-  //         productId: item.productId,
-  //         quantity: item.quantity,
-  //         price: item.price,
-  //       },
-  //     });
-  //   } else {
-  //     throw new Error("Cart item is missing required information.");
-  //   }
-  // }
 
   const totalAmount = Math.round((total + tax) * 100);
 

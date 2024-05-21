@@ -79,7 +79,7 @@ const CheckOutPage = () => {
   });
 
   const handleCheckout = () => {
-    if (user) {
+    if (!!user) {
       createPaymentSession({
         cartItems: cartProductDetails,
         tax: tax,

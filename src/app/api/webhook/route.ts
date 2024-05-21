@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { db } from "@/db";
+import { Resend } from "resend";
+import OrderReceivedEmail from "@/components/emails/OrderReceivedEmail";
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   let event = stripe.webhooks.constructEvent(body, signature!, webhookSecret);
 
@@ -87,6 +90,7 @@ export async function POST(request: NextRequest) {
       const order = await db.order.create({
         data: {
           status: "awaiting_shipment",
+          email: userEmail || userExists?.email,
           total: event.data.object.amount_total! / 100,
           isPaid: true,
           userId: userIdToUse,
@@ -118,6 +122,26 @@ export async function POST(request: NextRequest) {
           },
         });
       }
+
+      await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: userEmail,
+        subject: "Thank you for your order",
+        react: OrderReceivedEmail({
+          orderDate: order.createdAt.toLocaleDateString(),
+          orderId: order.id,
+          shippingAddres: {
+            id: shippingAddressId,
+            name: shippingAddress!.name!,
+            street: shippingAddress!.address?.line1!,
+            city: shippingAddress!.address?.city!,
+            postalCode: shippingAddress!.address?.postal_code!,
+            country: shippingAddress!.address?.country!,
+            state: shippingAddress!.address?.state!,
+            phoneNumber: shippingAddress?.phone || "No phone number provided.",
+          },
+        }),
+      });
 
       break;
     // handle other type of stripe events
