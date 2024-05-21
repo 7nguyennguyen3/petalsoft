@@ -121,7 +121,7 @@ const CheckOutPage = () => {
                 key={item.productId}
                 className="flex gap-3 items-center mb-10"
               >
-                <div className="w-full max-w-[300px] h-full max-h-[200px]">
+                <div className="w-full xs:max-w-[180px] sm:max-w-[300px] h-full max-h-[200px]">
                   <img
                     src={item.imgSrc}
                     alt={item.title}

@@ -17,6 +17,8 @@ const Navbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
+  const adminEmails = process.env.ADMIN_EMAIL!.split(",");
+
   return (
     <nav
       className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75
@@ -81,7 +83,7 @@ const Navbar = async () => {
                 </DropdownMenuContent>
               ) : (
                 <DropdownMenuContent className="z-[200]">
-                  {user.email === process.env.ADMIN_EMAIL && (
+                  {user && user.email && adminEmails.includes(user.email) && (
                     <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                       <Link
                         href="/dashboard"
