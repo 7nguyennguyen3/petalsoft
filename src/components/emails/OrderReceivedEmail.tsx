@@ -36,7 +36,7 @@ const OrderReceivedEmail = ({
         <Container style={container}>
           <Section style={message}>
             <Img
-              src={`${baseUrl}/logo.png`}
+              src={`${baseUrl}/email-favicon.webp`}
               width="65"
               height="73"
               alt="petalsoft logo"

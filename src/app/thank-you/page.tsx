@@ -1,5 +1,9 @@
 "use client";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Confetti from "react-dom-confetti";
 
@@ -36,6 +40,16 @@ const ThankYouPage = () => {
               A confirmation email has been sent to your email. You can expect
               your items to arrive within 3-5 business days.
             </p>
+            <Link
+              href="/my-order"
+              className={cn(
+                buttonVariants({ variant: "default" }),
+                "bg-custom-purple gap-2 self-start"
+              )}
+            >
+              Go To Your Order!
+              <ArrowRight size={20} />
+            </Link>
           </div>
         </MaxWidthWrapper>
       </div>

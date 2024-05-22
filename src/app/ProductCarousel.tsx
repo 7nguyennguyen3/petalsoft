@@ -17,7 +17,9 @@ const ProductCarousel = () => {
   const { data: products, isLoading } = useFetchProduct();
   const addToCart = useCartStore((state) => state.addToCart);
 
-  const topSellers = products?.filter((product) => product.id < 5);
+  const topSellers = products?.filter(
+    (product) => product.id < 4 || product.id > 5
+  );
 
   return isLoading ? (
     <Loading />

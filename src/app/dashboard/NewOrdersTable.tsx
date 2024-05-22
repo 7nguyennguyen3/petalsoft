@@ -69,6 +69,7 @@ export function DataTable<TData, TValue>({
     createdAt: false,
     updatedAt: false,
     userId: false,
+    email: false,
     shippingAddressId: false,
     isPaid: false,
   });

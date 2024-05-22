@@ -24,12 +24,12 @@ export const TOPSELLERS = [
     reviews: 121,
   },
   {
-    id: 4,
-    title: "Mineralized Sunscreen",
-    price: 22.99,
+    id: 6,
+    title: "Zinc Boost",
+    price: 11.99,
     imgSrc:
-      "https://res.cloudinary.com/dzzdvsy7c/image/upload/v1715976639/product7_bontmc.webp",
-    reviews: 322,
+      "https://res.cloudinary.com/dzzdvsy7c/image/upload/v1715976639/product3_ti1rps.webp",
+    reviews: 652,
   },
 ];
 
@@ -43,14 +43,7 @@ export const COSMETICS = [
       "https://res.cloudinary.com/dzzdvsy7c/image/upload/v1715976639/product2_h8ujiq.webp",
     reviews: 652,
   },
-  {
-    id: 6,
-    title: "Zinc Boost",
-    price: 11.99,
-    imgSrc:
-      "https://res.cloudinary.com/dzzdvsy7c/image/upload/v1715976639/product3_ti1rps.webp",
-    reviews: 652,
-  },
+
   {
     id: 7,
     title: "Ocean Breeze",
@@ -58,6 +51,14 @@ export const COSMETICS = [
     imgSrc:
       "https://res.cloudinary.com/dzzdvsy7c/image/upload/v1715976639/product5_ikxduf.webp",
     reviews: 652,
+  },
+  {
+    id: 4,
+    title: "Mineralized Sunscreen",
+    price: 22.99,
+    imgSrc:
+      "https://res.cloudinary.com/dzzdvsy7c/image/upload/v1715976639/product7_bontmc.webp",
+    reviews: 322,
   },
 ];
 

@@ -36,3 +36,21 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json(error, { status: 500 });
   }
 }
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    const customerShippingAddress = await db.shippingAddress.findUnique({
+      where: {
+        id: body.shippingAddressId,
+      },
+    });
+    return NextResponse.json(customerShippingAddress, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json("Unable to fetch shipping address.", {
+      status: 500,
+    });
+  }
+}
