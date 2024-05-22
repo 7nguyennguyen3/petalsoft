@@ -12,6 +12,9 @@ export async function GET(request: NextRequest) {
       where: {
         userId,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return NextResponse.json(orders, { status: 200 });
