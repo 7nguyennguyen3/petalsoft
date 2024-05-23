@@ -38,6 +38,8 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronsUpDown,
+  Minus,
+  Plus,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -96,8 +98,10 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center p-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="h-8">
+            <Button variant="outline" className="h-10 flex items-center gap-2">
+              <Minus size={14} />
               Columns
+              <Plus size={14} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>

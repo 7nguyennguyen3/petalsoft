@@ -42,4 +42,32 @@ export const useCartStore = create<CartStore>((set) => ({
       cartItems: items,
     }));
   },
+  reduceQuantity: (productId: number) => {
+    set((state) => {
+      // Find the item in the cart
+      const existingItemIndex = state.cartItems.findIndex(
+        (item) => item.productId === productId
+      );
+
+      // If the item is not in the cart, do nothing
+      if (existingItemIndex === -1) {
+        return state;
+      }
+
+      // If the item is in the cart, reduce its quantity
+      const updatedCartItems = state.cartItems.map((item, index) => {
+        if (index === existingItemIndex) {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+        return item;
+      });
+
+      // Remove items with a quantity of 0 or less
+      const finalCartItems = updatedCartItems.filter(
+        (item) => item.quantity > 0
+      );
+
+      return { cartItems: finalCartItems };
+    });
+  },
 }));

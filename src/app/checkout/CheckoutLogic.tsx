@@ -142,7 +142,7 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
                   className={cn(buttonVariants(), "c-button self-start")}
                 >
                   Visit our store
-                  <ArrowRight />
+                  <ArrowRight size={22} />
                 </Link>
               </div>
             ) : (

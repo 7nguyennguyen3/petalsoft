@@ -66,11 +66,11 @@ export default function Home() {
               </div>
 
               <p className="text-medium">
-                “PetalSoft’s perfumes are a journey in a bottle. Each scent
-                tells a story, and ‘Ocean Whispers’ has become my signature
-                fragrance. It’s not just a perfume; it’s an experience that
-                complements my personality. Plus, their commitment to
-                sustainability is truly commendable.”
+                “PetalSoft’s anti-aging serum is a fountain of youth in a
+                bottle. Each application unfolds a narrative of rejuvenation, it
+                has become my go-to secret. It’s not just a skincare product;
+                it’s a ritual that enhances my essence. Moreover, their
+                dedication to eco-friendly practices is truly admirable.”
               </p>
               <div className="flex gap-2 items-center">
                 <p>— Mia S.</p>

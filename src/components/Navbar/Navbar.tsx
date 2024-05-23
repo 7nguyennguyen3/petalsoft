@@ -37,9 +37,12 @@ const Navbar = async () => {
                   <Menu />
                 ) : (
                   <p
-                    className={buttonVariants({
-                      variant: "outline",
-                    })}
+                    className={cn(
+                      buttonVariants({
+                        variant: "outline",
+                      }),
+                      "shadow-lg"
+                    )}
                   >
                     {user.given_name}
                   </p>
@@ -51,7 +54,7 @@ const Navbar = async () => {
                     <Link
                       href="/store"
                       className={cn(
-                        buttonVariants({ variant: "outline" }),
+                        buttonVariants({ variant: "ghost" }),
                         "h-8"
                       )}
                     >
@@ -88,7 +91,7 @@ const Navbar = async () => {
                       <Link
                         href="/dashboard"
                         className={cn(
-                          buttonVariants({ variant: "outline" }),
+                          buttonVariants({ variant: "ghost" }),
                           "h-8"
                         )}
                       >
@@ -100,7 +103,7 @@ const Navbar = async () => {
                     <Link
                       href="/store"
                       className={cn(
-                        buttonVariants({ variant: "outline" }),
+                        buttonVariants({ variant: "ghost" }),
                         "h-8"
                       )}
                     >

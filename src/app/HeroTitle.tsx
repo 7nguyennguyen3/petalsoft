@@ -44,7 +44,7 @@ const HeroTitle = () => {
         href="/store"
         className={cn(
           buttonVariants(),
-          "bg-custom-purple flex-1 items-center gap-2 w-[240px] h-[50px] font-bold text-lg"
+          "bg-custom-purple gap-2 w-[240px] h-[50px] font-bold text-lg"
         )}
       >
         Explore our shop
