@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import MaxWidthWrapper from "../MaxWidthWrapper";
@@ -34,7 +34,7 @@ const Navbar = async () => {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 {!user ? (
-                  <Menu />
+                  <Menu size={28} />
                 ) : (
                   <p
                     className={cn(
@@ -44,7 +44,7 @@ const Navbar = async () => {
                       "shadow-lg"
                     )}
                   >
-                    {user.given_name}
+                    {user.given_name !== undefined ? user.given_name : <User />}
                   </p>
                 )}
               </DropdownMenuTrigger>
