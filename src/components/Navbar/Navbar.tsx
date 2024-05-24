@@ -63,7 +63,7 @@ const Navbar = async () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                     <Link
-                      href="/api/auth/login"
+                      href="/sign-in"
                       className={buttonVariants({
                         size: "sm",
                         variant: "ghost",
@@ -74,13 +74,24 @@ const Navbar = async () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                     <Link
-                      href="/api/auth/register"
+                      href="/sign-up"
                       className={buttonVariants({
                         size: "sm",
                         variant: "ghost",
                       })}
                     >
                       Sign up
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
+                    <Link
+                      href="/faq"
+                      className={buttonVariants({
+                        size: "sm",
+                        variant: "ghost",
+                      })}
+                    >
+                      FAQ
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -119,6 +130,17 @@ const Navbar = async () => {
                       })}
                     >
                       My Order
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
+                    <Link
+                      href="/faq"
+                      className={buttonVariants({
+                        size: "sm",
+                        variant: "ghost",
+                      })}
+                    >
+                      FAQ
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">

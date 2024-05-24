@@ -31,7 +31,7 @@ const Cart = () => {
         <ShoppingBag className="text-zinc-600" size="30px" />
       </motion.div>
 
-      <div className="absolute top-[24px] right-[3px]">
+      <div className="absolute top-[18px] right-[3px]">
         {totalItemsInCart > 0 && (
           <motion.div
             initial={{ y: -50 }}

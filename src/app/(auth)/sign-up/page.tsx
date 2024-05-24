@@ -12,7 +12,7 @@ const SignUpPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen grainy-light">
-      <div className="p-8 bg-white rounded shadow-md w-96">
+      <div className="p-8 bg-zinc-300 rounded shadow-md w-96">
         <div className="flex justify-center items-center my-5">
           <img
             loading="lazy"

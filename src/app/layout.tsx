@@ -29,7 +29,7 @@ export default function RootLayout({
         <Footer />
         <Toaster />
         <SpeedInsights />
-        {/* <Chatbot /> */}
+        <Chatbot />
       </body>
     </html>
   );
