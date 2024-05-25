@@ -15,15 +15,19 @@ import {
 } from "@react-email/components";
 import { ArrowRight, Flower } from "lucide-react";
 
-const OrderReceivedEmail = ({
-  shippingAddress,
-  orderId,
-  orderDate,
-}: {
-  shippingAddress: ShippingAddress;
-  orderId: string;
-  orderDate: string;
-}) => {
+const OrderReceivedEmail = () => {
+  const shippingAddress: ShippingAddress = {
+    id: "1",
+    name: "John Doe",
+    street: "123 Main St",
+    city: "Anytown",
+    state: "Anystate",
+    postalCode: "12345",
+    country: "USA",
+    phoneNumber: "123-456-7890",
+  };
+  const orderId = "12345lsjdklsdl;akdl;askdaksjdlkasdhwqn123lk13j21lk316";
+  const orderDate = new Date().toLocaleDateString();
   const baseUrl =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
@@ -68,7 +72,7 @@ const OrderReceivedEmail = ({
                 <a
                   href={`${baseUrl}/my-order`}
                   className="bg-customPurple text-white font-semibold 
-                      flex items-center gap-2 justify-center text-[14px] py-2 px-4 rounded"
+                  flex items-center gap-2 justify-center text-[14px] py-2 px-4 rounded"
                   style={{ textDecoration: "none" }}
                 >
                   Visit your order page!
