@@ -19,6 +19,8 @@ interface CheckoutProps {
   tax: number;
 }
 
+const crypto = require("crypto");
+
 export const createCheckoutSession = async ({
   cartItems,
   tax,
@@ -65,8 +67,10 @@ export const createCheckoutSession = async ({
     currency: "USD",
   });
 
+  const token = crypto.randomBytes(64).toString("hex");
+
   const stripeSession = await stripe.checkout.sessions.create({
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?token=${token}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/checkout`,
     payment_method_types: ["card"],
     mode: "payment",

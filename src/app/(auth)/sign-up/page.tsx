@@ -22,7 +22,7 @@ const SignUpPage = async () => {
           <img
             loading="lazy"
             decoding="async"
-            src="../favicon.ico"
+            src="/email-favicon.webp"
             alt="Logo"
             className="w-10 h-10"
           />

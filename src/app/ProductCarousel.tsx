@@ -2,6 +2,7 @@
 import AddToCart from "@/components/AddToCart";
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -11,6 +12,7 @@ import { useFetchProduct } from "@/lib/hook";
 import { useCartStore } from "@/store";
 import { Check, DollarSign, Star } from "lucide-react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -22,13 +24,25 @@ const ProductCarousel = () => {
     (product) => ![4, 5, 6].includes(product.id)
   );
 
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      carouselApi && carouselApi.scrollNext();
+    }, 3000);
+
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [carouselApi]);
+
   return isLoading ? (
     <section className="max-w-[600px] mx-auto py-40 p-5">
       <div className="w-full flex flex-col items-center mb-20">
         <Skeleton width={300} height={40} />
       </div>
 
-      <Carousel>
+      <Carousel setApi={setCarouselApi}>
         <CarouselContent>
           {[...Array(5)].map((_, index) => (
             <CarouselItem key={index} className="w-full h-[700px]">
@@ -87,7 +101,7 @@ const ProductCarousel = () => {
                     addToCart={addToCart}
                     product={product}
                     showQuantity={false}
-                    showBuyNow={true}
+                    showBuyNow={false}
                   />
                 </div>
               </CarouselItem>

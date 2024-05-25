@@ -2,7 +2,11 @@ import { db } from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const orders = await db.order.findMany();
+  const orders = await db.order.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   return NextResponse.json(orders, { status: 200 });
 }
