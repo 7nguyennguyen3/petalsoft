@@ -148,23 +148,23 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
             ) : (
               <>
                 <div className="bg-zinc-500 h-[0.25px] my-5" />
-                <div className="flex flex-col items-end gap-2">
-                  <p className="text-xl">${total.toFixed(2)}</p>
-                  <div className="w-[160px] flex justify-between items-center text-xl ">
+                <div className="flex flex-col items-end gap-4">
+                  <p className="text-lg">${total.toFixed(2)}</p>
+                  <div className="w-[240px] flex justify-between items-center text-xl ">
                     <p>Tax</p>
-                    <p className="text-xl">+${tax.toFixed(2)}</p>
+                    <p className="text-lg">+${tax.toFixed(2)}</p>
                   </div>
-                  <div className="bg-zinc-500 h-[1px] w-[160px]" />
-                  <div className="w-[160px] flex justify-between items-center text-2xl font-semibold">
+                  <div className="bg-zinc-500 h-[1px] w-[240px]" />
+                  <div className="w-[240px] flex justify-between items-center text-xl font-semibold">
                     <p>Total</p>
                     <h2>${(total + tax).toFixed(2)}</h2>
                   </div>
                   <Button
                     onClick={handleCheckout}
-                    className="w-[160px] c-button"
+                    className="w-[240px] bg-custom-purple gap-2 text-[15px] font-bold"
                   >
                     Check Out
-                    <ArrowRight />
+                    <ArrowRight size={22} />
                   </Button>
                 </div>
               </>

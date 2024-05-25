@@ -97,7 +97,8 @@ const Navbar = async () => {
                 </DropdownMenuContent>
               ) : (
                 <DropdownMenuContent className="z-[200]">
-                  {user && user.email && adminEmails.includes(user.email) && (
+                  {
+                    // user && user.email && adminEmails.includes(user.email) &&
                     <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                       <Link
                         href="/dashboard"
@@ -109,7 +110,7 @@ const Navbar = async () => {
                         Admin Dashboard
                       </Link>
                     </DropdownMenuItem>
-                  )}
+                  }
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                     <Link
                       href="/store"

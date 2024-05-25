@@ -204,7 +204,7 @@ export function DataTable<TData, TValue>({
 
 const NewOrdersTable = () => {
   const { data: orders } = useFetchOrders();
-  const [ordersVisible, setOrdersVisible] = useState(false);
+  const [ordersVisible, setOrdersVisible] = useState(true);
   const queryClient = useQueryClient();
   const { mutate: updateOrderStatus } = useMutation({
     mutationKey: ["updateOrder"],
@@ -249,13 +249,13 @@ const NewOrdersTable = () => {
       accessorKey: "total",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
+          <div
+            className="flex items-center cursor-pointer hover:text-black"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Total
             <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
+          </div>
         );
       },
       cell: ({ row }) => {
@@ -281,13 +281,13 @@ const NewOrdersTable = () => {
       accessorKey: "status",
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
+          <div
+            className="flex items-center cursor-pointer hover:text-black"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Status
             <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
+          </div>
         );
       },
       cell: ({ row }) => {
@@ -339,7 +339,17 @@ const NewOrdersTable = () => {
     },
     {
       accessorKey: "createdAt",
-      header: "Created At",
+      header: ({ column }) => {
+        return (
+          <div
+            className="flex items-center cursor-pointer hover:text-black"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Ordered At
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </div>
+        );
+      },
       cell: ({ row }) =>
         new Date(row.getValue("createdAt")).toLocaleDateString(),
     },

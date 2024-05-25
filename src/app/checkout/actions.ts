@@ -79,6 +79,7 @@ export const createCheckoutSession = async ({
       userId: user.id,
       email: user.email,
       cartItems: cartItemsJson,
+      token,
     },
     line_items: [{ price: price.id, quantity: 1 }],
   });

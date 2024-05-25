@@ -17,10 +17,10 @@ export async function POST(request: NextRequest) {
     case "checkout.session.completed":
       const userId = event.data.object.metadata!.userId;
       const userEmail = event.data.object.metadata!.email;
+      const token = event.data.object.metadata!.token;
       const cartItems = JSON.parse(event.data.object.metadata!.cartItems);
 
       // const cartItems = [
-      //   { productId: 5, quantity: 14 },
       //   { productId: 2, quantity: 12 },
       //   { productId: 3, quantity: 5 },
       // ];
@@ -95,6 +95,7 @@ export async function POST(request: NextRequest) {
           isPaid: true,
           userId: userIdToUse,
           shippingAddressId: shippingAddressId,
+          token,
         },
       });
 
@@ -130,7 +131,7 @@ export async function POST(request: NextRequest) {
         react: OrderReceivedEmail({
           orderDate: order.createdAt.toLocaleDateString(),
           orderId: order.id,
-          shippingAddres: {
+          shippingAddress: {
             id: shippingAddressId,
             name: shippingAddress!.name!,
             street: shippingAddress!.address?.line1!,

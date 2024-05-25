@@ -20,8 +20,8 @@ const ProductCarousel = () => {
   const { data: products, isLoading } = useFetchProduct();
   const addToCart = useCartStore((state) => state.addToCart);
 
-  const topSellers = products?.filter(
-    (product) => ![4, 5, 6].includes(product.id)
+  const topSellers = products?.filter((product) =>
+    [1, 2, 3, 4, 6, 8, 9, 10].includes(product.id)
   );
 
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);

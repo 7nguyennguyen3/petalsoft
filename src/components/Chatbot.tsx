@@ -13,6 +13,7 @@ const Chatbot = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -54,7 +55,8 @@ const Chatbot = () => {
         className="rounded-full self-end"
         onClick={(event) => {
           event.stopPropagation();
-          setIsOpen(!isOpen);
+          setCount(count + 1);
+          setIsOpen(count % 2 === 0);
         }}
       >
         <Bot size={28} />
@@ -63,7 +65,7 @@ const Chatbot = () => {
         <div
           ref={chatboxRef}
           className="absolute bottom-[120%] right-[45%] transform translate-x-1/2 
-        w-[90%] max-w-[500px] h-[80vh] xs:max-h-[800px] sm:max-h-[700px] bg-zinc-500/80 rounded shadow flex flex-col xs:p-1 sm:p-3"
+        w-[90%] max-w-[500px] h-[70vh] xs:max-h-[800px] sm:max-h-[700px] bg-zinc-500/80 rounded shadow flex flex-col xs:p-1 sm:p-3"
         >
           <div className="flex justify-between p-2">
             <Button

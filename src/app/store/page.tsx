@@ -36,7 +36,32 @@ const StorePage = () => {
           <div className="min-h-screen py-28 ">
             <h2 className="text-4xl font-bold gra-p-b mb-10">Skin Care</h2>
             <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {products?.map((cosmetic) => (
+              {products
+                ?.filter((product) => product.id < 10)
+                .map((cosmetic) => (
+                  <div
+                    className="w-full max-w-[600px] mb-2 h-full max-h-[400px]
+                  hover:scale-105 cursor-pointer flex items-center justify-center flex-col"
+                    key={cosmetic.id}
+                    onClick={() => router.push(`/store/${cosmetic.id}`)}
+                  >
+                    <img
+                      src={cosmetic.imgSrc}
+                      className="h-[85%] rounded-lg"
+                      alt={cosmetic.title}
+                    />
+                    <p className="font-semibold text-lg mt-2 shadow-md">
+                      {cosmetic.title}
+                    </p>
+                  </div>
+                ))}
+            </div>
+          </div>
+          <h2 className="text-4xl font-bold gra-p-b mb-10">Perfume</h2>
+          <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {products
+              ?.filter((product) => product.id >= 10)
+              .map((cosmetic) => (
                 <div
                   className="w-full max-w-[600px] mb-2 h-full max-h-[400px]
                   hover:scale-105 cursor-pointer flex items-center justify-center flex-col"
@@ -53,7 +78,6 @@ const StorePage = () => {
                   </p>
                 </div>
               ))}
-            </div>
           </div>
         </>
       )}

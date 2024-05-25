@@ -14,26 +14,25 @@ const NotFoundPage = () => {
               loading="lazy"
               decoding="async"
               src="/logo.webp"
-              alt="Logo"
+              alt="Company Logo"
               className="w-28 h-8"
             />
+
             <img
               loading="lazy"
               decoding="async"
               src="../favicon.ico"
-              alt="Logo"
+              alt="Company Favicon"
               className="w-10 h-10"
             />
           </div>
-          <h1 className="text-3xl font-bold mb-4">
-            Sorry! This page does not exist.
-          </h1>
+          <h1 className="text-3xl font-bold mb-4">Page Not Found</h1>
           <p className="text-lg my-2 text-center">
-            The page you are looking for might have been removed, had its name
-            changed, or is temporarily unavailable.
+            We're unable to locate the page you requested. It may have been
+            deleted, renamed, or is temporarily inaccessible.
           </p>
           <Link href="/" className={cn(buttonVariants(), "gap-2 mt-4")}>
-            Go to Home Page <ArrowRight size={20} />
+            Return to Home Page <ArrowRight size={20} />
           </Link>
         </div>
       </MaxWidthWrapper>
