@@ -9,6 +9,8 @@ type CartStore = {
   cartItems: CartItem[];
   addToCart: (productId: number, quantity: number) => void;
   initializeCart: (items: CartItem[]) => void;
+  increaseQuantity: (productId: number) => void;
+  decreaseQuantity: (productId: number) => void;
 };
 
 export const useCartStore = create<CartStore>((set) => ({
@@ -68,6 +70,29 @@ export const useCartStore = create<CartStore>((set) => ({
       );
 
       return { cartItems: finalCartItems };
+    });
+  },
+  increaseQuantity: (productId: number) => {
+    set((state) => {
+      const updatedCartItems = state.cartItems.map((item) =>
+        item.productId === productId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      return { cartItems: updatedCartItems };
+    });
+  },
+
+  decreaseQuantity: (productId: number) => {
+    set((state) => {
+      const updatedCartItems = state.cartItems
+        .map((item) =>
+          item.productId === productId
+            ? { ...item, quantity: Math.max(0, item.quantity - 1) }
+            : item
+        )
+        .filter((item) => item.quantity > 0);
+      return { cartItems: updatedCartItems };
     });
   },
 }));

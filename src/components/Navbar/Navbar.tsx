@@ -17,7 +17,7 @@ const Navbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  const adminEmails = process.env.ADMIN_EMAIL!.split(",");
+  // const adminEmails = process.env.ADMIN_EMAIL!.split(",");
 
   return (
     <nav
@@ -52,6 +52,17 @@ const Navbar = async () => {
                 <DropdownMenuContent className="z-[200]">
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                     <Link
+                      href="/dashboard"
+                      className={cn(
+                        buttonVariants({ variant: "ghost" }),
+                        "h-8"
+                      )}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
+                    <Link
                       href="/store"
                       className={cn(
                         buttonVariants({ variant: "ghost" }),
@@ -69,20 +80,10 @@ const Navbar = async () => {
                         variant: "ghost",
                       })}
                     >
-                      Login
+                      Login / Sign Up
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
-                    <Link
-                      href="/sign-up"
-                      className={buttonVariants({
-                        size: "sm",
-                        variant: "ghost",
-                      })}
-                    >
-                      Sign up
-                    </Link>
-                  </DropdownMenuItem>
+
                   <DropdownMenuItem className="flex items-center justify-center text-custom-purple">
                     <Link
                       href="/faq"

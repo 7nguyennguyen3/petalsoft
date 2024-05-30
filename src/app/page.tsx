@@ -9,7 +9,7 @@ export default function Home() {
     <div>
       <section
         style={{
-          backgroundImage: 'url("/hero-bg.webp")',
+          backgroundImage: 'url("/hero-bg2.webp")',
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
@@ -73,7 +73,7 @@ export default function Home() {
                 dedication to eco-friendly practices is truly admirable.”
               </p>
               <div className="flex gap-2 items-center">
-                <p>— Mia S.</p>
+                <p>— Jasmine A.</p>
                 <Avatar>
                   <AvatarImage src="/user-3.webp" />
                   <AvatarFallback>MS</AvatarFallback>

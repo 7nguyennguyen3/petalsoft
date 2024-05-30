@@ -18,10 +18,13 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
   const { data: addedProducts } = useFetchProduct();
-  const { cartItems, initializeCart } = useCartStore((state) => ({
-    cartItems: state.cartItems,
-    initializeCart: state.initializeCart,
-  }));
+  const { cartItems, initializeCart, decreaseQuantity, increaseQuantity } =
+    useCartStore((state) => ({
+      cartItems: state.cartItems,
+      initializeCart: state.initializeCart,
+      decreaseQuantity: state.decreaseQuantity,
+      increaseQuantity: state.increaseQuantity,
+    }));
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const router = useRouter();
@@ -90,6 +93,14 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
     }
   };
 
+  const handleIncreaseQuantity = (productId: number) => {
+    increaseQuantity(productId);
+  };
+
+  const handleDecreaseQuantity = (productId: number) => {
+    decreaseQuantity(productId);
+  };
+
   return (
     <>
       <div
@@ -129,7 +140,21 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
                 </div>
                 <div className="font-medium">
                   <p className="text-xl font-bold gra-p-b">{item.title}</p>
-                  <p>Quantity: {item.quantity}</p>
+                  <div className="flex items-center">
+                    <button
+                      onClick={() => handleDecreaseQuantity(item.productId)}
+                      className="p-2 border rounded"
+                    >
+                      -
+                    </button>
+                    <span className="mx-2">{item.quantity}</span>
+                    <button
+                      onClick={() => handleIncreaseQuantity(item.productId)}
+                      className="p-2 border rounded"
+                    >
+                      +
+                    </button>
+                  </div>
                   <p>Price: ${item.price?.toFixed(2) ?? "N/A"}</p>
                 </div>
               </div>
