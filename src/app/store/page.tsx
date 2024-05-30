@@ -49,6 +49,7 @@ const StorePage = () => {
                       src={cosmetic.imgSrc}
                       className="h-[85%] rounded-lg"
                       alt={cosmetic.title}
+                      loading="lazy"
                     />
                     <p className="font-semibold text-lg mt-2 shadow-md">
                       {cosmetic.title}
@@ -69,6 +70,7 @@ const StorePage = () => {
                   onClick={() => router.push(`/store/${cosmetic.id}`)}
                 >
                   <img
+                    loading="lazy"
                     src={cosmetic.imgSrc}
                     className="h-[85%] rounded-lg"
                     alt={cosmetic.title}

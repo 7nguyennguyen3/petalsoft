@@ -3,18 +3,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Check, Star } from "lucide-react";
 import HeroTitle from "./HeroTitle";
 import ProductCarousel from "./ProductCarousel";
+import Image from "next/image";
 
 export default function Home() {
   return (
     <div>
-      <section
-        style={{
-          backgroundImage: 'url("/hero-bg2.webp")',
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      >
-        <MaxWidthWrapper>
+      <section className="relative">
+        <Image
+          src="/hero-bg2.webp"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          alt="Background image"
+        />
+        <MaxWidthWrapper className="z-20 relative">
           <div className="grid items-center py-40">
             <HeroTitle />
           </div>

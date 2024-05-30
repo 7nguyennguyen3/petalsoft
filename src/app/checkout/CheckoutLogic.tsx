@@ -135,6 +135,7 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
                   <img
                     src={item.imgSrc}
                     alt={item.title}
+                    loading="lazy"
                     className="rounded-lg"
                   />
                 </div>

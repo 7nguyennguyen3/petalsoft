@@ -68,6 +68,7 @@ const ProductDetailPage = () => {
             <img
               src={displayProduct?.imgSrc}
               className="rounded-lg"
+              loading="lazy"
               alt={displayProduct?.title}
             />
           </div>
@@ -118,6 +119,7 @@ const ProductDetailPage = () => {
                   <Link href={`/store/${product.id}`}>
                     <div className="w-48 h-48 flex justify-center items-center p-2 border rounded-lg">
                       <img
+                        loading="lazy"
                         src={product.imgSrc}
                         alt={product.title}
                         className="object-cover w-full h-full rounded-lg"
