@@ -19,7 +19,7 @@ const LoginModal = ({
 }) => {
   return (
     <Dialog onOpenChange={setIsOpen} open={isOpen}>
-      <DialogContent className="absolute z-[999]">
+      <DialogContent className="flex flex-col items-center justify-center mx-auto">
         <DialogHeader>
           <div className="relative mx-auto w-24 h-24 mb-2">
             <Image

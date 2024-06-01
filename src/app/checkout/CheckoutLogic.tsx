@@ -174,7 +174,7 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
             ) : (
               <>
                 <div className="bg-zinc-500 h-[0.25px] my-5" />
-                <div className="flex flex-col items-end gap-4">
+                <div className="flex flex-col items-end gap-4 mb-20">
                   <p className="text-lg">${total.toFixed(2)}</p>
                   <div className="w-[240px] flex justify-between items-center text-xl ">
                     <p>Tax</p>

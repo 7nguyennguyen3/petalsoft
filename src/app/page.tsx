@@ -11,12 +11,12 @@ export default function Home() {
       <section className="relative">
         <Image
           src="/hero-bg2.webp"
-          layout="fill"
+          fill
           objectFit="cover"
           objectPosition="center"
           alt="Background image"
         />
-        <MaxWidthWrapper className="z-20 relative">
+        <MaxWidthWrapper className="z-1 relative">
           <div className="grid items-center py-40">
             <HeroTitle />
           </div>

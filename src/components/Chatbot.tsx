@@ -65,7 +65,7 @@ const Chatbot = () => {
         <div
           ref={chatboxRef}
           className="absolute bottom-[120%] right-[45%] transform translate-x-1/2 
-        w-[90%] max-w-[500px] h-[75vh] xs:max-h-[800px] sm:max-h-[700px] bg-zinc-500/80 rounded shadow flex flex-col xs:p-1 sm:p-3"
+        w-[92%] max-w-[500px] h-[75vh] xs:max-h-[800px] sm:max-h-[700px] bg-zinc-500/80 rounded shadow flex flex-col xs:p-1 sm:p-3"
         >
           <div className="flex justify-between p-2">
             <Button
