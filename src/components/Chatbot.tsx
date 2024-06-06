@@ -5,6 +5,7 @@ import { RefObject, useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import ReactMarkdown from "react-markdown";
 import { ScrollArea } from "./ui/scroll-area";
+import delay from "delay";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -13,11 +14,11 @@ const Chatbot = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [count, setCount] = useState(0);
+  const [typingMessage, setTypingMessage] = useState("");
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isOpen, typingMessage]);
 
   const requestData = {
     question: userMessage,
@@ -47,16 +48,27 @@ const Chatbot = () => {
   };
 
   const chatboxRef = useRef(null);
-  useOnClickOutside(chatboxRef, () => setIsOpen(false));
+  const chatbotIconRef = useRef<HTMLButtonElement>(null);
+  useOnClickOutside(chatboxRef, (event) => {
+    // Do not close the chatbot if the chatbot icon is clicked
+    if (
+      chatbotIconRef.current &&
+      chatbotIconRef.current.contains(event.target as Node)
+    ) {
+      return;
+    }
+
+    setIsOpen(false);
+  });
 
   return (
     <div className="fixed bottom-5 right-5 w-full max-w-xl flex justify-end">
       <Button
+        ref={chatbotIconRef}
         className="rounded-full self-end"
         onClick={(event) => {
           event.stopPropagation();
-          setCount(count + 1);
-          setIsOpen(count % 2 === 0);
+          setIsOpen(!isOpen);
         }}
       >
         <Bot size={28} />
@@ -123,6 +135,15 @@ const Chatbot = () => {
                 </div>
               );
             })}
+            {typingMessage && (
+              <div className="bg-white text-black rounded-lg p-4 my-2 max-w-max mr-auto relative text-sm">
+                {typingMessage}
+                <Bot
+                  size={28}
+                  className="absolute bottom-[-10px] left-[-2px] text-[30px]"
+                />
+              </div>
+            )}
             <div ref={bottomRef} />
           </ScrollArea>
 
@@ -131,32 +152,36 @@ const Chatbot = () => {
               e.preventDefault();
               if (isLoading) return;
 
+              // prevent user from sending more mesages,
+              // add user message to the chat, clear the input field
               setIsLoading(true);
               setMessages((prev) => [...prev, userMessage]);
               setUserMessage("");
 
-              setTimeout(async () => {
-                setMessages((prev) => [...prev, "Formulating a response..."]);
+              await delay(500);
+              setMessages((prev) => [...prev, "Formulating a response..."]);
 
-                try {
-                  const { data } = await axios.post(
-                    "/api/chatbot",
-                    requestData
-                  );
-                  setSessionId(data.sessionId);
-                  setMessages((prev) => {
-                    const newMessages = prev.filter(
-                      (message) => message !== "Formulating a response..."
-                    );
-                    return [...newMessages, data.text];
-                  });
-                  console.log(data);
-                } catch (error) {
-                  console.error(error);
-                } finally {
-                  setIsLoading(false);
+              try {
+                const { data } = await axios.post("/api/chatbot", requestData);
+                setSessionId(data.sessionId);
+                const chars = data.text.split("");
+                let streamedMessage = "";
+
+                setMessages((prev) => prev.slice(0, -1));
+
+                for (const char of chars) {
+                  await new Promise((resolve) => setTimeout(resolve, 10));
+                  streamedMessage += char;
+                  setTypingMessage(streamedMessage);
                 }
-              }, 500);
+
+                setMessages((prev) => [...prev, streamedMessage]);
+                setTypingMessage("");
+              } catch (error) {
+                console.error(error);
+              } finally {
+                setIsLoading(false);
+              }
             }}
             className="grid grid-cols-1 sm:grid-cols-[9fr_1fr] gap-2 items-center p-3"
           >
