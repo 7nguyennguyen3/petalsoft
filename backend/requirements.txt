@@ -1,0 +1,10 @@
+langchain
+langchain-openai
+langchain-community
+langchain-pinecone
+langchainhub
+PyJWT 
+fastapi
+uvicorn
+slowapi
+psycopg2-binary

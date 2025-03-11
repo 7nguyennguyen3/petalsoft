@@ -130,3 +130,10 @@ async def chat_stream(chat_session_id: str):
             "Connection": "keep-alive"
         }
     )
+
+@router.head("/health")
+async def health():
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content={"message": "Healthy"}
+    )
