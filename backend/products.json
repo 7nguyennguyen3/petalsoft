@@ -1,0 +1,206 @@
+[
+  {
+    "id": 1,
+    "title": "Green Tea Moisturizer",
+    "price": 19.99,
+    "imgSrc": "path/to/image1.jpg",
+    "reviews": 10,
+    "description": "The Green Tea Moisturizer is a calming skincare product designed to soothe and hydrate the skin. Packed with green tea extract, it helps reduce redness and inflammation while offering antioxidant protection to keep the skin looking fresh and youthful. The formula is lightweight and absorbs quickly, making it perfect for daily use. Ideal for sensitive skin types, this moisturizer helps lock in moisture without feeling greasy, leaving the skin soft and smooth. Use it in your morning or evening skincare routine for a refreshing boost of hydration.",
+    "shortDescription": "A soothing moisturizer with green tea extract that hydrates and calms sensitive skin.",
+    "category": "Skincare",
+    "stock": 100,
+    "ingredients": [
+      "Green Tea Extract",
+      "Aloe Vera",
+      "Vitamin E",
+      "Glycerin",
+      "Citric Acid"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Anti-Aging Serum",
+    "price": 29.99,
+    "imgSrc": "path/to/image2.jpg",
+    "reviews": 20,
+    "description": "The Anti-Aging Serum is a potent skincare product formulated to reduce visible signs of aging. Enriched with powerful ingredients like retinol and hyaluronic acid, it helps to firm the skin, reduce fine lines and wrinkles, and promote a smoother, more youthful appearance. This serum is perfect for anyone looking to restore elasticity and vitality to their skin, while also providing deep hydration and nourishment. With regular use, you can expect to see a noticeable improvement in your skin’s texture and tone, revealing a more radiant complexion.",
+    "shortDescription": "A serum with retinol and hyaluronic acid that firms the skin and reduces wrinkles.",
+    "category": "Skincare",
+    "stock": 50,
+    "ingredients": [
+      "Retinol",
+      "Hyaluronic Acid",
+      "Vitamin C",
+      "Peptides",
+      "Jojoba Oil"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Skin Brightening Toner",
+    "price": 15.99,
+    "imgSrc": "path/to/image3.jpg",
+    "reviews": 15,
+    "description": "This Skin Brightening Toner is formulated to even out skin tone and promote a radiant, glowing complexion. Infused with natural ingredients like vitamin C and niacinamide, it works to brighten dark spots and hyperpigmentation while improving skin texture. The gentle, alcohol-free formula refreshes the skin, balances pH levels, and helps tighten pores. Ideal for those with uneven skin tone or dullness, this toner can be used daily to reveal a more luminous and clear complexion. Use it after cleansing to prepare the skin for further treatments.",
+    "shortDescription": "A toner with vitamin C and niacinamide that brightens and evens skin tone.",
+    "category": "Skincare",
+    "stock": 75,
+    "ingredients": [
+      "Niacinamide",
+      "Vitamin C",
+      "Witch Hazel",
+      "Chamomile Extract",
+      "Glycolic Acid"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Mineralized Sunscreen",
+    "price": 25.99,
+    "imgSrc": "path/to/image4.jpg",
+    "reviews": 30,
+    "description": "This Mineralized Sunscreen provides broad-spectrum protection against harmful UV rays, while also nourishing the skin. Made with natural minerals like zinc oxide and titanium dioxide, it acts as a physical barrier to block both UVA and UVB rays. Its lightweight, non-greasy formula is perfect for daily wear, leaving the skin with a matte finish. The sunscreen also includes antioxidants to protect the skin from environmental stressors. Ideal for all skin types, including sensitive skin, this product will keep your skin safe and hydrated throughout the day.",
+    "shortDescription": "A mineral sunscreen with zinc oxide that provides broad-spectrum UV protection.",
+    "category": "Skincare",
+    "stock": 60,
+    "ingredients": [
+      "Zinc Oxide",
+      "Titanium Dioxide",
+      "Vitamin E",
+      "Aloe Vera",
+      "Glycerin"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Sunflower",
+    "price": 12.99,
+    "imgSrc": "path/to/image5.jpg",
+    "reviews": 5,
+    "description": "The Sunflower fragrance is a bright, uplifting scent inspired by the vibrant and cheerful sunflower. This refreshing fragrance captures the essence of summer with notes of fresh sunflowers, citrus, and light florals. It is perfect for those who love fresh and floral fragrances that provide a sense of positivity and energy. Ideal for casual wear or daytime outings, this fragrance is sure to leave you feeling refreshed and confident. The Sunflower fragrance is light yet long-lasting, making it a perfect addition to your daily routine.",
+    "shortDescription": "A bright fragrance with sunflower and citrus notes for a fresh, uplifting scent.",
+    "category": "Fragrance",
+    "stock": 80,
+    "ingredients": [
+      "Sunflower Extract",
+      "Citrus Notes",
+      "Jasmine",
+      "Lavender",
+      "Vanilla"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Zinc Boost",
+    "price": 18.99,
+    "imgSrc": "path/to/image6.jpg",
+    "reviews": 25,
+    "description": "Zinc Boost is a dietary supplement designed to support overall immune health and boost your zinc levels. Zinc is an essential mineral that plays a crucial role in many bodily functions, including immune response, wound healing, and skin health. With this supplement, you can ensure that you're getting the optimal amount of zinc to maintain a healthy immune system and promote cellular function. Perfect for those with low zinc levels or those looking to maintain their wellness during flu season, Zinc Boost is a convenient way to support your health.",
+    "shortDescription": "A dietary supplement that boosts zinc levels to support immune health.",
+    "category": "Supplements",
+    "stock": 90,
+    "ingredients": [
+      "Zinc Gluconate",
+      "Vitamin C",
+      "Vitamin E",
+      "Magnesium",
+      "L-Cysteine"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Ocean Breeze",
+    "price": 22.99,
+    "imgSrc": "path/to/image7.jpg",
+    "reviews": 12,
+    "description": "Ocean Breeze is a refreshing fragrance inspired by the ocean's crisp and invigorating air. With notes of sea salt, fresh ocean water, and a hint of tropical fruit, it offers a clean and airy scent that evokes feelings of relaxation and calm. Perfect for warm weather or beach outings, this fragrance is ideal for those who enjoy aquatic and fresh scents. Its subtle yet refreshing profile makes it suitable for both men and women who appreciate light and uplifting fragrances.",
+    "shortDescription": "A refreshing fragrance with sea salt and ocean notes for a calming scent.",
+    "category": "Fragrance",
+    "stock": 70,
+    "ingredients": ["Sea Salt", "Citrus", "Coconut", "Jasmine", "Musk"]
+  },
+  {
+    "id": 8,
+    "title": "Radiant Glow Nourishing Cream",
+    "price": 27.99,
+    "imgSrc": "path/to/image8.jpg",
+    "reviews": 18,
+    "description": "Radiant Glow Nourishing Cream is a luxurious cream that deeply hydrates and nourishes the skin, leaving it glowing and rejuvenated. This rich formula contains a blend of natural oils and vitamins that help restore moisture to dry skin while also improving elasticity and firmness. The cream’s light, non-greasy texture absorbs easily and is suitable for all skin types. With regular use, it can help reduce the appearance of fine lines and promote a youthful, radiant complexion. Ideal for nighttime use, this nourishing cream will help your skin look vibrant and refreshed by morning.",
+    "shortDescription": "A nourishing cream that hydrates, firms, and promotes a radiant complexion.",
+    "category": "Skincare",
+    "stock": 65,
+    "ingredients": [
+      "Shea Butter",
+      "Jojoba Oil",
+      "Vitamin C",
+      "Vitamin E",
+      "Hyaluronic Acid"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Purifying Exfoliating Cleanser",
+    "price": 14.99,
+    "imgSrc": "path/to/image9.jpg",
+    "reviews": 22,
+    "description": "The Purifying Exfoliating Cleanser is a gentle yet effective cleanser that removes dirt, oil, and dead skin cells to reveal a smoother, more refined complexion. The exfoliating particles help unclog pores and promote skin renewal, while natural ingredients like green tea and aloe vera soothe and calm the skin. This cleanser is ideal for those with oily or acne-prone skin, but gentle enough for all skin types. It leaves the skin feeling fresh, clean, and invigorated, making it a perfect addition to your daily skincare routine.",
+    "shortDescription": "A gentle exfoliating cleanser that removes dirt and promotes smoother skin.",
+    "category": "Skincare",
+    "stock": 85,
+    "ingredients": [
+      "Salicylic Acid",
+      "Green Tea Extract",
+      "Aloe Vera",
+      "Jojoba Beads",
+      "Glycerin"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Lotus Blossom Eau de Parfum",
+    "price": 34.99,
+    "imgSrc": "path/to/image10.jpg",
+    "reviews": 28,
+    "description": "Lotus Blossom Eau de Parfum is a luxurious fragrance inspired by the delicate and serene beauty of lotus flowers. The scent blends fresh lotus petals with sweet fruity notes and a touch of floral jasmine. This fragrance evokes a sense of tranquility and elegance, perfect for any occasion. Whether you're heading to a special event or simply want to feel refined, the Lotus Blossom Eau de Parfum is sure to leave a lasting impression. Its soft and sophisticated scent lingers throughout the day, offering a timeless and beautiful fragrance experience.",
+    "shortDescription": "A luxurious perfume with lotus and jasmine notes for a tranquil, elegant scent.",
+    "category": "Fragrance",
+    "stock": 40,
+    "ingredients": ["Lotus Petals", "Jasmine", "Peach", "Vanilla", "Amber"]
+  },
+  {
+    "id": 11,
+    "title": "Amber Elegance Fragrance",
+    "price": 32.99,
+    "imgSrc": "path/to/image11.jpg",
+    "reviews": 35,
+    "description": "Amber Elegance Fragrance is a captivating scent with warm, earthy amber notes that exude sophistication and luxury. This elegant fragrance is balanced with hints of vanilla, patchouli, and jasmine, creating a complex and alluring scent. Perfect for evening wear or romantic occasions, it’s a fragrance that leaves a lasting impression. The rich amber base combined with floral and spicy accents creates an enticing aroma that lingers on the skin, offering a warm, comforting feeling that makes it suitable for colder months. This fragrance will make you feel both confident and elegant.",
+    "shortDescription": "A warm and sophisticated fragrance with amber, vanilla, and jasmine for evening wear.",
+    "category": "Fragrance",
+    "stock": 55,
+    "ingredients": ["Amber", "Vanilla", "Patchouli", "Jasmine", "Sandalwood"]
+  },
+  {
+    "id": 12,
+    "title": "Camille Bliss Perfume",
+    "price": 29.99,
+    "imgSrc": "path/to/image12.jpg",
+    "reviews": 40,
+    "description": "Camille Bliss Perfume is a fragrance that embodies the feeling of pure happiness and joy. With notes of fresh citrus, wildflowers, and soft vanilla, it creates a light, airy, and uplifting scent that is perfect for daily wear. This perfume is designed to make you feel as blissful as the name suggests, with a fragrance that radiates positivity and lightness. Whether worn on a casual day or a night out, Camille Bliss will leave you smelling fantastic and feeling confident, thanks to its sweet and refreshing fragrance.",
+    "shortDescription": "A light, uplifting fragrance with citrus and wildflowers, perfect for daily wear.",
+    "category": "Fragrance",
+    "stock": 45,
+    "ingredients": ["Citrus", "Wildflowers", "Vanilla", "Musk", "Rose"]
+  },
+  {
+    "id": 13,
+    "title": "Verdant Mint Eau de Toilette",
+    "price": 24.99,
+    "imgSrc": "path/to/image13.jpg",
+    "reviews": 33,
+    "description": "Verdant Mint Eau de Toilette is a crisp, refreshing fragrance that combines the coolness of mint with the lush greenness of freshly cut grass. It’s an invigorating scent perfect for daytime wear, especially in warm weather. The fragrance is light yet uplifting, with hints of mint, citrus, and a touch of green tea. This eau de toilette is ideal for those who enjoy fresh, energizing scents that make them feel revitalized throughout the day. Whether worn during a busy workday or a leisurely weekend, Verdant Mint will keep you feeling fresh and confident.",
+    "shortDescription": "A refreshing fragrance with mint and citrus for an energizing daytime scent.",
+    "category": "Fragrance",
+    "stock": 50,
+    "ingredients": ["Mint", "Citrus", "Green Tea", "Basil", "Musk"]
+  }
+]

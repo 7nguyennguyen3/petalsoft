@@ -129,20 +129,28 @@ export async function POST(request: NextRequest) {
         to: userEmail,
         subject: "Thank you for your order",
         react: OrderReceivedEmail({
-          orderDate: order.createdAt.toLocaleDateString(),
-          orderId: order.id,
-          shippingAddress: {
-            id: shippingAddressId,
-            name: shippingAddress!.name!,
-            street: shippingAddress!.address?.line1!,
-            city: shippingAddress!.address?.city!,
-            postalCode: shippingAddress!.address?.postal_code!,
-            country: shippingAddress!.address?.country!,
-            state: shippingAddress!.address?.state!,
-            phoneNumber: shippingAddress?.phone || "No phone number provided.",
+          order: {
+            id: order.id,
+            createdAt: order.createdAt,
+            shippingAddress: {
+              name: shippingAddress!.name!,
+              street:
+                shippingAddress!.address?.line1 ||
+                "Street address not provided",
+              city: shippingAddress!.address?.city || "City not provided",
+              state: shippingAddress!.address?.state || "State not provided",
+              postalCode:
+                shippingAddress!.address?.postal_code ||
+                "Postal code not provided",
+              country:
+                shippingAddress!.address?.country || "Country not provided",
+              phoneNumber:
+                shippingAddress?.phone || "Phone number not provided",
+            },
           },
         }),
       });
+      break;
 
       break;
     // handle other type of stripe events

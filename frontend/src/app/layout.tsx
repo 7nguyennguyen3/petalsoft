@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Chatbot from "@/components/Chatbot";
+import ChatPopup from "@/components/Chatbot";
 
 const recursive = Recursive({ subsets: ["latin"] });
 
@@ -26,10 +26,10 @@ export default function RootLayout({
       <body className={recursive.className}>
         <Navbar />
         <Providers>{children}</Providers>
+        <ChatPopup />
         <Footer />
         <Toaster />
         <SpeedInsights />
-        <Chatbot />
       </body>
     </html>
   );
