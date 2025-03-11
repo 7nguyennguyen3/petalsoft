@@ -1,29 +1,9 @@
-# General
-.DS_Store
-*.log
-*.swp
-*.swo
-.env
-.env.local
-.env.development
-.env.production
-.env.test
-.venv
-.idea
-.vscode
-
 # Frontend (Next.js)
-/frontend/.next
-/frontend/out
-/frontend/node_modules
-/frontend/.npm
-/frontend/.cache
-/frontend/.yarn
-/frontend/yarn-error.log
-/frontend/package-lock.json
-/frontend/yarn.lock
-/frontend/next-env.d.ts
-/frontend/.env*
+frontend/node_modules/
+frontend/.next/
+frontend/.env
+frontend/.vercel/  
+frontend/.cache/ 
 
 # Backend (Python/FastAPI)
 /backend/__pycache__
