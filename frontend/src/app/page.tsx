@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative h-[90vh] min-h-[600px]">
+      <section className="relative h-[90vh] min-h-[500px] max-h-[600px] sm:max-h-[900px]">
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
 
         {/* Background fallback for older browsers */}
@@ -27,52 +27,50 @@ export default function Home() {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1400px"
             className="object-cover object-center"
             alt="Woman enjoying PetalSoft skincare products"
-            placeholder="blur"
-            blurDataURL="/cleanser-lowres.jpg"
           />
         </div>
 
-        <MaxWidthWrapper className="relative h-full flex items-center">
+        <MaxWidthWrapper className="relative h-full flex items-center justify-center">
           <HeroTitle />
         </MaxWidthWrapper>
       </section>
 
       {/* Testimonials Section */}
-      <section className="bg-gradient-to-b from-zinc-50 to-white py-24">
+      <section className="bg-gradient-to-b from-zinc-50 to-white py-16 sm:py-24">
         <MaxWidthWrapper className="px-4 sm:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold gra-p-b mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold gra-p-b mb-4">
               Loved By Thousands
             </h2>
-            <p className="text-xl text-zinc-600 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-zinc-600 max-w-2xl mx-auto">
               Join our community of 500,000+ satisfied customers worldwide
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
               >
                 <div className="flex gap-3 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className="w-6 h-6 text-amber-400 fill-amber-400"
+                      className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 fill-amber-400"
                     />
                   ))}
                 </div>
-                <blockquote className="text-2xl font-medium leading-relaxed text-zinc-800 mb-6">
+                <blockquote className="text-xl sm:text-2xl font-medium leading-relaxed text-zinc-800 mb-6">
                   {testimonial.quote}
                 </blockquote>
                 <div className="flex items-center gap-4">
-                  <Avatar className="w-12 h-12">
+                  <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                     <AvatarImage src={testimonial.avatar} />
                     <AvatarFallback>{testimonial.initials}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="font-semibold text-lg">
+                    <p className="font-semibold text-base sm:text-lg">
                       {testimonial.author}
                     </p>
                     <p className="flex items-center gap-2 text-sm text-green-600">
@@ -90,11 +88,13 @@ export default function Home() {
       <ProductCarousel />
 
       {/* Mission Section */}
-      <section className="bg-zinc-900 text-white py-24">
+      <section className="bg-zinc-900 text-white py-16 sm:py-24">
         <MaxWidthWrapper className="px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-4xl font-bold mb-12">Our Core Promise</h3>
-            <div className="grid md:grid-cols-2 gap-8">
+            <h3 className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-12">
+              Our Core Promise
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
               {missionItems.map((item, index) => (
                 <div
                   key={index}
@@ -102,9 +102,11 @@ export default function Home() {
                 >
                   <div className="flex items-center gap-4 mb-4">
                     <div className="p-3 bg-custom-purple/20 rounded-lg">
-                      <item.icon className="w-8 h-8 text-custom-purple" />
+                      <item.icon className="w-6 h-6 sm:w-8 sm:h-8 text-custom-purple" />
                     </div>
-                    <h4 className="text-xl font-semibold">{item.title}</h4>
+                    <h4 className="text-lg sm:text-xl font-semibold">
+                      {item.title}
+                    </h4>
                   </div>
                   <p className="text-zinc-300 text-left">{item.description}</p>
                 </div>

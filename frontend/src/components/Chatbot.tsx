@@ -1,12 +1,12 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import { Bot, CircleX, Send, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import axios from "axios";
+import { Bot, CircleX, Send } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 
 interface ChatMessages {
   role: "human" | "ai";
@@ -19,20 +19,26 @@ const ChatPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState<string>("");
   const [messages, setMessages] = useState<ChatMessages[]>([]);
   const [chatId, setChatId] = useState<string>("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const loadingSteps = [
+    "🔍 Requesting information...",
+    "📊 Analyzing data...",
+    "🤖 Generating response...",
+  ];
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (!chatId) {
+    if (!chatId) {
+      setTimeout(() => {
         setChatId(uuidv4());
-      }
-    }, 1000);
+      }, 1000);
+    }
   }, []);
 
   const sendMessage = async () => {
@@ -40,8 +46,26 @@ const ChatPopup = () => {
 
     setMessages((prev) => [...prev, { role: "human", content: message }]);
     setLoading(true);
+    setLoadingText(loadingSteps[0]);
 
     if (!chatId) setChatId(uuidv4());
+
+    let stepIndex = 0;
+    let animationIndex = 0;
+    let isBouncingDots = false;
+
+    const interval = setInterval(() => {
+      if (stepIndex < loadingSteps.length) {
+        setLoadingText(loadingSteps[stepIndex]);
+        stepIndex++;
+      } else {
+        // Cycle between bouncing dots when all steps are complete
+        isBouncingDots = true;
+        const dots = ["●", "● ●", "● ● ●"];
+        setLoadingText(dots[animationIndex % dots.length]);
+        animationIndex++;
+      }
+    }, 1000); // 1s per step
 
     try {
       await axios.post("/api/chat", { message, chat_session_id: chatId });
@@ -55,17 +79,34 @@ const ChatPopup = () => {
         try {
           const data = JSON.parse(event.data);
           if (data.content) {
-            botResponse += data.content;
-            setMessages((prev) => {
-              const last = prev[prev.length - 1];
-              if (last?.role === "ai") {
-                return [
-                  ...prev.slice(0, -1),
-                  { role: "ai", content: last.content + data.content },
-                ];
+            let index = 0;
+            const words = data.content.split(" "); // Split by words for natural effect
+
+            const streamText = () => {
+              if (index < words.length) {
+                setMessages((prev) => {
+                  const last = prev[prev.length - 1];
+
+                  if (last?.role === "ai") {
+                    return [
+                      ...prev.slice(0, -1),
+                      {
+                        role: "ai",
+                        content: last.content + " " + words[index],
+                      },
+                    ];
+                  }
+
+                  return [...prev, { role: "ai", content: words[index] }];
+                });
+
+                index++;
+
+                setTimeout(streamText, Math.random() * 20 + 20); // Random delay between 50-250ms
               }
-              return [...prev, { role: "ai", content: data.content }];
-            });
+            };
+
+            streamText(); // Start streaming text
           }
         } catch (error) {
           console.error("Error parsing SSE data:", error);
@@ -74,6 +115,7 @@ const ChatPopup = () => {
 
       eventSource.addEventListener("end", () => {
         eventSource.close();
+        clearInterval(interval);
         setLoading(false);
         setMessage("");
       });
@@ -81,10 +123,12 @@ const ChatPopup = () => {
       eventSource.onerror = (error) => {
         console.error("SSE error:", error);
         eventSource.close();
+        clearInterval(interval);
         setLoading(false);
       };
     } catch (err) {
       console.error("Request failed:", err);
+      clearInterval(interval);
       setLoading(false);
     }
   };
@@ -95,18 +139,18 @@ const ChatPopup = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-999">
+    <div className="fixed bottom-4 right-5 z-999">
       {/* Floating AI Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-4 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition-all"
+        className="p-3 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition-all"
       >
         <Bot size={28} className="text-white" />
       </button>
 
       {/* Chat Container */}
       {isOpen && (
-        <div className="absolute bottom-20 right-0 w-[90vw] max-w-[500px] min-h-[400px] h-[70vh] max-h-[800px] bg-white rounded-lg shadow-xl flex flex-col">
+        <div className="absolute bottom-0 right-0 w-[90vw] max-w-[500px] min-h-[300px] h-[75vh] sm:h-[80vh] max-h-[800px] bg-white rounded-lg shadow-xl flex flex-col">
           {/* Header */}
           <div className="flex justify-between items-center p-4 border-b">
             <div className="flex gap-2">
@@ -159,20 +203,40 @@ const ChatPopup = () => {
                 </div>
               </div>
             ))}
+
+            {/* Loading Animation */}
+            {loading && (
+              <div className="mr-auto max-w-[80%]">
+                <div className="p-3 bg-gray-100 rounded-lg animate-pulse">
+                  {loadingText}
+                </div>
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </ScrollArea>
 
           {/* Input Area */}
           <div className="p-4 border-t">
-            <div className="flex gap-2">
-              <input
-                type="text"
+            <div className="flex-col flex 400:flex-row items-center gap-2">
+              <textarea
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                  e.target.style.height = "auto"; // Reset height to recalculate
+                  e.target.style.height =
+                    Math.min(e.target.scrollHeight, 120) + "px"; // Max height ~3 rows
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                  }
+                }}
                 placeholder="Type your message..."
-                className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-hidden"
                 disabled={loading}
+                style={{ minHeight: "40px", maxHeight: "120px" }} // Default height and max 3 rows
               />
               <Button
                 onClick={sendMessage}

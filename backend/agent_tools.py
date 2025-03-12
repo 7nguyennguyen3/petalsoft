@@ -5,23 +5,21 @@ import psycopg2
 import json
 from neon_connect import pool
 from typing import Union, List
-
-def get_retriever(vectorstore):
-    """Returns a retriever that performs similarity search on the vectorstore."""
-    return vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 4})
-
-@tool
-def search_documents(query: str) -> str:
-    """Searches the vectorstore for relevant documents based on the query."""
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")  # Corrected: Use keyword argument
-    vectorstore = Pinecone.from_existing_index("petalsoft", embeddings)
-    retriever = get_retriever(vectorstore)
-    docs = retriever.get_relevant_documents(query)
-    return "\n\n".join([doc.page_content for doc in docs])
-
-import json
-from langchain.tools import tool
 from collections import defaultdict
+import json
+
+# def get_retriever(vectorstore):
+#     """Returns a retriever that performs similarity search on the vectorstore."""
+#     return vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 4})
+
+# @tool
+# def search_documents(query: str) -> str:
+#     """Searches the vectorstore for relevant documents based on the query."""
+#     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")  # Corrected: Use keyword argument
+#     vectorstore = Pinecone.from_existing_index("petalsoft", embeddings)
+#     retriever = get_retriever(vectorstore)
+#     docs = retriever.get_relevant_documents(query)
+#     return "\n\n".join([doc.page_content for doc in docs])
 
 @tool
 def get_all_products():
@@ -59,6 +57,24 @@ def get_all_products():
         return "❌ Error: The products.json file was not found."
     except json.JSONDecodeError:
         return "❌ Error: The products.json file is malformed."
+@tool
+def get_faq_content(topic: str):
+    """Returns the FAQ content for the specified topic (shipping, refund, or product)."""
+    try:
+        # Load the JSON file
+        with open("faq.json", "r", encoding="utf-8") as file:
+            faq_data = json.load(file)
+
+        # Check if the requested topic exists
+        if topic.lower() in faq_data:
+            return faq_data[topic.lower()]["content"]
+
+        return f"❌ Topic '{topic}' not found in FAQ."
+
+    except FileNotFoundError:
+        return "❌ Error: The faq.json file was not found."
+    except json.JSONDecodeError:
+        return "❌ Error: The faq.json file is malformed."
 
 @tool
 def get_product_detail(product_name: str):

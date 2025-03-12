@@ -4,7 +4,7 @@ import CheckoutLogic from "./CheckoutLogic";
 const CheckOutPage = async () => {
   const { getUser } = getKindeServerSession();
 
-  const user = await getUser();
+  const user = await getUser<void>();
 
   return (
     <div>
