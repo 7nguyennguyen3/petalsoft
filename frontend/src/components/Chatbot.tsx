@@ -234,14 +234,14 @@ const ChatPopup = () => {
                   }
                 }}
                 placeholder="Type your message..."
-                className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-hidden"
+                className="flex-1 p-2 border w-full max-w-4/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-hidden"
                 disabled={loading}
                 style={{ minHeight: "40px", maxHeight: "120px" }} // Default height and max 3 rows
               />
               <Button
                 onClick={sendMessage}
                 disabled={loading}
-                className="bg-blue-600 hover:bg-blue-700"
+                className="bg-blue-600 hover:bg-blue-700 h-12 w-12 rounded-full"
               >
                 <Send size={18} className="rotate-45" />
               </Button>
