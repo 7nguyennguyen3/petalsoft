@@ -9,7 +9,7 @@ import os
 import asyncio
 
 from neon_connect import close_pool
-from routes import router, cleanup_old_sessions
+from routes import router
 
 
 load_dotenv()
@@ -36,7 +36,6 @@ allowed_origins = os.getenv("ALLOWED_ORIGINS")
 async def lifespan(app: FastAPI):
     # No need to initialize the pool here; it's already initialized in neon_connect.py
     logging.info("Database connection pool is ready.")
-    asyncio.create_task(cleanup_old_sessions())
     yield
     # Close the connection pool when the app shuts down
     logging.info("Closing database connection pool...")

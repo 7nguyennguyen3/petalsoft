@@ -6,7 +6,6 @@ import { Bot, CircleX, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { v4 as uuidv4 } from "uuid";
 
 interface ChatMessages {
   role: "human" | "ai";
@@ -19,123 +18,104 @@ const ChatPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [streaming, setStreaming] = useState(false);
   const [loadingText, setLoadingText] = useState<string>("");
   const [messages, setMessages] = useState<ChatMessages[]>([]);
-  const [chatId, setChatId] = useState<string>("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const loadingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
   const loadingSteps = [
     "🔍 Requesting information...",
     "📊 Analyzing data...",
     "🤖 Generating response...",
   ];
 
+  // Scroll to bottom on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  useEffect(() => {
-    if (!chatId) {
-      setTimeout(() => {
-        setChatId(uuidv4());
-      }, 1000);
-    }
-  }, []);
-
-  const sendMessage = async () => {
-    if (!message.trim()) return;
-
-    setMessages((prev) => [...prev, { role: "human", content: message }]);
-    setLoading(true);
-    setLoadingText(loadingSteps[0]);
-
-    if (!chatId) setChatId(uuidv4());
-
+  const startLoadingAnimation = () => {
     let stepIndex = 0;
     let animationIndex = 0;
-    let isBouncingDots = false;
 
-    const interval = setInterval(() => {
+    loadingIntervalRef.current = setInterval(() => {
       if (stepIndex < loadingSteps.length) {
         setLoadingText(loadingSteps[stepIndex]);
         stepIndex++;
       } else {
-        // Cycle between bouncing dots when all steps are complete
-        isBouncingDots = true;
         const dots = ["●", "● ●", "● ● ●"];
         setLoadingText(dots[animationIndex % dots.length]);
         animationIndex++;
       }
-    }, 1000); // 1s per step
+    }, 1000);
+  };
+
+  const sendMessage = async () => {
+    if (!message.trim() || loading || streaming) return; // Disable if streaming
+
+    // Add user message
+    setMessages((prev) => [...prev, { role: "human", content: message }]);
+    setLoading(true);
+    startLoadingAnimation();
 
     try {
-      await axios.post("/api/chat", { message, chat_session_id: chatId });
-
-      const eventSource = new EventSource(
-        `${BACKEND_URL}/chat_stream/${chatId}`
-      );
-      let botResponse = "";
-
-      eventSource.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          if (data.content) {
-            let index = 0;
-            const words = data.content.split(" "); // Split by words for natural effect
-
-            const streamText = () => {
-              if (index < words.length) {
-                setMessages((prev) => {
-                  const last = prev[prev.length - 1];
-
-                  if (last?.role === "ai") {
-                    return [
-                      ...prev.slice(0, -1),
-                      {
-                        role: "ai",
-                        content: last.content + " " + words[index],
-                      },
-                    ];
-                  }
-
-                  return [...prev, { role: "ai", content: words[index] }];
-                });
-
-                index++;
-
-                setTimeout(streamText, Math.random() * 20 + 20); // Random delay between 50-250ms
-              }
-            };
-
-            streamText(); // Start streaming text
-          }
-        } catch (error) {
-          console.error("Error parsing SSE data:", error);
-        }
-      };
-
-      eventSource.addEventListener("end", () => {
-        eventSource.close();
-        clearInterval(interval);
-        setLoading(false);
-        setMessage("");
+      const response = await axios.post(`/api/chat`, {
+        user_message: message,
       });
 
-      eventSource.onerror = (error) => {
-        console.error("SSE error:", error);
-        eventSource.close();
-        clearInterval(interval);
-        setLoading(false);
-      };
-    } catch (err) {
-      console.error("Request failed:", err);
-      clearInterval(interval);
+      // Stop loading animation as soon as we start streaming
+      if (loadingIntervalRef.current) clearInterval(loadingIntervalRef.current);
       setLoading(false);
+      setStreaming(true); // Enable streaming state
+
+      // Simulate streaming effect
+      const fullResponse = response.data.content;
+      const words = fullResponse.split(" ");
+      let currentMessage = "";
+
+      for (let i = 0; i < words.length; i++) {
+        // Add a small delay between words
+        await new Promise((resolve) =>
+          setTimeout(resolve, Math.random() * 20 + 20)
+        );
+
+        currentMessage += (i > 0 ? " " : "") + words[i];
+
+        setMessages((prev) => {
+          const last = prev[prev.length - 1];
+          if (last?.role === "ai") {
+            return [
+              ...prev.slice(0, -1),
+              { role: "ai", content: currentMessage },
+            ];
+          }
+          return [...prev, { role: "ai", content: currentMessage }];
+        });
+      }
+    } catch (err) {
+      console.error("Message send failed:", err);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "ai",
+          content: "Sorry, there was an error processing your request",
+        },
+      ]);
+    } finally {
+      if (loadingIntervalRef.current) clearInterval(loadingIntervalRef.current);
+      setLoading(false);
+      setStreaming(false); // Disable streaming state
+      setMessage("");
     }
   };
 
   const startNewChat = () => {
     setMessages([]);
-    setChatId(uuidv4());
+    setMessage("");
+    setLoading(false);
+    setStreaming(false); // Reset streaming state
+    if (loadingIntervalRef.current) clearInterval(loadingIntervalRef.current);
   };
 
   return (
@@ -223,9 +203,9 @@ const ChatPopup = () => {
                 value={message}
                 onChange={(e) => {
                   setMessage(e.target.value);
-                  e.target.style.height = "auto"; // Reset height to recalculate
+                  e.target.style.height = "auto";
                   e.target.style.height =
-                    Math.min(e.target.scrollHeight, 120) + "px"; // Max height ~3 rows
+                    Math.min(e.target.scrollHeight, 120) + "px";
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
@@ -236,11 +216,11 @@ const ChatPopup = () => {
                 placeholder="Type your message..."
                 className="flex-1 p-2 border w-full max-w-4/5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-hidden"
                 disabled={loading}
-                style={{ minHeight: "40px", maxHeight: "120px" }} // Default height and max 3 rows
+                style={{ minHeight: "40px", maxHeight: "120px" }}
               />
               <Button
                 onClick={sendMessage}
-                disabled={loading}
+                disabled={loading || streaming}
                 className="bg-blue-600 hover:bg-blue-700 h-12 w-12 rounded-full"
               >
                 <Send size={18} className="rotate-45" />

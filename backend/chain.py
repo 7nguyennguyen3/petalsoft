@@ -9,9 +9,7 @@ from custom_memory import SlidingChatMemory
 
 load_dotenv()
 
-# Create the agent with streaming support
 def create_agent():
-    # Initialize the streaming LLM with callback handler
     callback_handler = AsyncIteratorCallbackHandler()
     model = ChatOpenAI(
         temperature=0,
@@ -20,13 +18,7 @@ def create_agent():
         model="gpt-4o-mini"
     )
 
-    # Define the tools (unchanged)
     tools = [
-    # Tool(
-    #     name="SearchDocuments",
-    #     func=search_documents,
-    #     description="Useful for answering frequently asked questions or questions relating to company policies such as shipping and refund."
-    # ),
     Tool(
         name="GetFAQContent",
         func=get_faq_content,
@@ -58,9 +50,6 @@ def create_agent():
         description="Useful for getting the user's order details, supporting up to 5 per request."
     )
 ]
-
-
-    # Define the system prompt (unchanged)
     system_prompt = SystemMessage(
     content="""You are a helpful AI assistant of a company called PetalSoft. They sell perfume and cosmetics for women. Your task is to assist users by answering their questions or performing actions using the tools available to you.
     
@@ -82,8 +71,6 @@ def create_agent():
     - Keep your responses concise and informative."""
 )
 
-
-    # Initialize memory for chat history (unchanged)
     memory = SlidingChatMemory(max_messages=10, max_words=600)
 
     # Initialize the agent with streaming support
