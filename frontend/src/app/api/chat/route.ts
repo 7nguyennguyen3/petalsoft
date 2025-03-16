@@ -13,10 +13,9 @@ export async function POST(request: NextRequest) {
     throw new Error("CHAT_SECRET is not defined");
   }
 
-  const { user_message } = await request.json(); // Changed from 'message'
+  const { user_message } = await request.json();
 
   if (!user_message) {
-    // Changed validation
     return NextResponse.json(
       { message: "Missing required field: user_message" },
       { status: 400 }
@@ -24,7 +23,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const response = await axios.post(`${NEXT_PUBLIC_BACKEND_URL}/chat`, {
+    const response = await axios.post(`${NEXT_PUBLIC_BACKEND_URL}/petalsoft`, {
       user_message,
       chat_secret: CHAT_SECRET,
     });
