@@ -28,6 +28,7 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const router = useRouter();
+
   useEffect(() => {
     if (cartItems.length > 0 && !showConfetti) {
       setShowConfetti(true);
@@ -112,60 +113,74 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
           config={{ elementCount: 200, spread: 90 }}
         />
       </div>
-      <div className="grainy-light">
+      <div className="bg-gray-50 min-h-screen">
         <MaxWidthWrapper>
           <LoginModal
             isOpen={isLoginModalOpen}
             setIsOpen={setIsLoginModalOpen}
           />
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col py-10">
             <Link
               href="/store"
-              className="self-start mb-10 hover:scale-105 pt-20"
+              className="self-start mb-8 transition-transform hover:scale-105 pt-10"
             >
-              <ArrowLeft size={30} />
+              <ArrowLeft size={30} className="text-gray-700" />
             </Link>
-            <h1 className="text-4xl self-start gra-p-b  pb-10">Checkout</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-8">Checkout</h1>
             {cartProductDetails.map((item) => (
               <div
                 key={item.productId}
-                className="flex gap-3 items-center mb-10"
+                className="flex flex-col sm:flex-row gap-4 items-center mb-10 p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow"
               >
-                <div className="w-full xs:max-w-[180px] sm:max-w-[300px] h-full max-h-[200px]">
+                <div className="w-full sm:max-w-[180px] md:max-w-[300px]">
                   <img
                     src={item.imgSrc}
                     alt={item.title}
                     loading="lazy"
-                    className="rounded-lg"
+                    className="rounded-lg object-cover h-full w-full"
                   />
                 </div>
-                <div className="font-medium">
-                  <p className="text-xl font-bold gra-p-b">{item.title}</p>
-                  <div className="flex items-center">
+                <div className="flex flex-col gap-3 flex-1">
+                  <p className="text-xl font-semibold text-gray-700">
+                    {item.title}
+                  </p>
+                  <div className="flex items-center gap-2">
                     <button
                       onClick={() => handleDecreaseQuantity(item.productId)}
-                      className="p-2 border rounded"
+                      className="px-3 py-2 border border-gray-300 rounded hover:bg-gray-200 transition-colors"
                     >
                       -
                     </button>
-                    <span className="mx-2">{item.quantity}</span>
+                    <span className="text-lg font-medium text-gray-600">
+                      {item.quantity}
+                    </span>
                     <button
                       onClick={() => handleIncreaseQuantity(item.productId)}
-                      className="p-2 border rounded"
+                      className="px-3 py-2 border border-gray-300 rounded hover:bg-gray-200 transition-colors"
                     >
                       +
                     </button>
                   </div>
-                  <p>Price: ${item.price?.toFixed(2) ?? "N/A"}</p>
+                  <p className="text-gray-600">
+                    Price:{" "}
+                    <span className="font-semibold text-gray-800">
+                      ${item.price?.toFixed(2) ?? "N/A"}
+                    </span>
+                  </p>
                 </div>
               </div>
             ))}
             {cartProductDetails.length <= 0 ? (
-              <div className="flex flex-col gap-3">
-                <p>You currently don't have any product in the cart. </p>
+              <div className="flex flex-col gap-4 items-center py-10">
+                <p className="text-lg text-gray-600">
+                  You currently don't have any product in the cart.
+                </p>
                 <Link
                   href="/store"
-                  className={cn(buttonVariants(), "c-button self-start")}
+                  className={cn(
+                    buttonVariants(),
+                    "self-center flex items-center gap-2"
+                  )}
                 >
                   Visit our store
                   <ArrowRight size={22} />
@@ -173,21 +188,24 @@ const CheckoutLogic = ({ user }: { user: KindeUser | null }) => {
               </div>
             ) : (
               <>
-                <div className="bg-zinc-500 h-[0.25px] my-5" />
+                <div className="border-b border-gray-300 my-6" />
                 <div className="flex flex-col items-end gap-4 mb-20">
-                  <p className="text-lg">${total.toFixed(2)}</p>
-                  <div className="w-[240px] flex justify-between items-center text-xl ">
-                    <p>Tax</p>
-                    <p className="text-lg">+${tax.toFixed(2)}</p>
+                  <p className="text-xl text-gray-800">
+                    Subtotal:{" "}
+                    <span className="font-bold">${total.toFixed(2)}</span>
+                  </p>
+                  <div className="w-full max-w-sm flex justify-between items-center text-lg">
+                    <p className="text-gray-700">Tax</p>
+                    <p className="text-gray-700">+${tax.toFixed(2)}</p>
                   </div>
-                  <div className="bg-zinc-500 h-[1px] w-[240px]" />
-                  <div className="w-[240px] flex justify-between items-center text-xl font-semibold">
+                  <div className="w-full max-w-sm border-b border-gray-300" />
+                  <div className="w-full max-w-sm flex justify-between items-center text-xl font-semibold text-gray-800">
                     <p>Total</p>
                     <h2>${(total + tax).toFixed(2)}</h2>
                   </div>
                   <Button
                     onClick={handleCheckout}
-                    className="w-[240px] bg-custom-purple gap-2 text-[15px] font-bold"
+                    className="w-full max-w-sm bg-indigo-600 hover:bg-indigo-700 text-[15px] font-bold mt-4 flex items-center justify-center gap-2"
                   >
                     Check Out
                     <ArrowRight size={22} />

@@ -213,7 +213,7 @@ const FAQPage = () => {
                 <h3 className="text-xl font-semibold mb-4">Social Support</h3>
                 <ul className="space-y-3">
                   <li>
-                    <strong>Twitter:</strong>
+                    <strong>X:</strong>
                     <a
                       href="https://twitter.com/petalsoft"
                       className="text-blue-600 ml-2"

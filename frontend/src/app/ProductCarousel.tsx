@@ -55,107 +55,123 @@ const ProductCarousel = () => {
   }
 
   return (
-    <section className="py-24 bg-zinc-50">
-      <MaxWidthWrapper className="px-4 sm:px-6">
-        <div className="text-center mb-16">
-          <h3 className="text-4xl font-bold gra-p-b mb-4">
-            Bestselling Favorites
-          </h3>
-          <p className="text-xl text-zinc-600">
-            Discover our most-loved products
-          </p>
-        </div>
-
-        <div className="relative group">
-          {/* Navigation Arrows */}
-          {topSellers?.length && topSellers.length > 1 && (
-            <>
-              <button
-                onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 p-3 
+    <div className="relative group">
+      {/* Navigation Arrows */}
+      {topSellers?.length && topSellers.length > 1 && (
+        <>
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 p-3 
         rounded-full shadow-lg hover:bg-white transition-all opacity-0 group-hover:opacity-100
         ml-4"
-                aria-label="Previous slide"
-              >
-                ←
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 p-3 
+            aria-label="Previous slide"
+          >
+            ←
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 p-3 
         rounded-full shadow-lg hover:bg-white transition-all opacity-0 group-hover:opacity-100
         mr-4"
-                aria-label="Next slide"
+            aria-label="Next slide"
+          >
+            →
+          </button>
+        </>
+      )}
+
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {topSellers?.map((product) => (
+            <div
+              key={product.id}
+              className="flex-shrink-0 p-2"
+              style={{ width: "90%", margin: "2% 2%", maxWidth: "400px" }} // Show slight parts of next and previous slides
+            >
+              {/* Imports assumed: Link, Star, AddToCart, product object */}
+
+              <div
+                className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 
+                 transition-all duration-300 ease-in-out hover:-translate-y-1"
               >
-                →
-              </button>
-            </>
-          )}
-
-          {/* Embla Carousel */}
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex">
-              {topSellers?.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex-shrink-0 p-2"
-                  style={{ width: "90%", margin: "2% 2%", maxWidth: "700px" }} // Show slight parts of next and previous slides
+                {/* Link wraps only the image area as per original structure */}
+                <Link
+                  href={`/store/${product.id}`}
+                  aria-label={`View details for ${product.title}`}
                 >
-                  <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <Link href={`/store/${product.id}`}>
-                      <div className="relative w-full h-[50vh] min-h-[300px] max-h-[600px] overflow-hidden rounded-lg mx-auto">
-                        <img
-                          src={product.imgSrc}
-                          className="w-full h-full object-cover transition-transform hover:scale-105"
-                          alt={product.title}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                      </div>
-                    </Link>
+                  {/* Image container - Retained vh height as requested, adjusted rounding */}
+                  <div className="relative w-full h-[50vh] min-h-[200px] max-h-[300px] overflow-hidden rounded-t-xl">
+                    <img
+                      src={product.imgSrc}
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                      alt={product.title}
+                    />
+                    {/* Slightly subtler gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+                </Link>
 
-                    <div className="p-6">
-                      <div className="flex flex-col gap-3 400:flex-row justify-between items-start mb-4">
-                        <h4 className="text-xl font-bold">{product.title}</h4>
-                        <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">
-                          Bestseller
-                        </span>
-                      </div>
+                {/* Content Area - Reduced padding, added flex-col structure */}
+                <div className="p-4 flex flex-col flex-grow">
+                  {/* Title and Badge */}
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    {" "}
+                    {/* Adjusted spacing, items-start */}
+                    <h4
+                      className="text-lg font-semibold text-gray-800 leading-tight truncate mr-2"
+                      title={product.title}
+                    >
+                      {" "}
+                      {/* Adjusted size/leading, added truncate, margin */}
+                      {product.title}
+                    </h4>
+                    {/* Slightly different badge style */}
+                    <span className="flex-shrink-0 bg-indigo-50 text-indigo-600 px-2.5 py-0.5 rounded-full text-xs font-medium">
+                      Bestseller
+                    </span>
+                  </div>
 
-                      <div className="flex items-center mb-3">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className="w-5 h-5 text-amber-400 fill-amber-400"
-                          />
-                        ))}
-                        <span className="ml-2 text-sm text-zinc-600">
-                          ({product.reviews} reviews)
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-4 mb-6">
-                        <p className="text-2xl font-bold text-custom-purple">
-                          ${product.price}
-                        </p>
-                        <p className="text-zinc-400 line-through">
-                          ${(product.price + 7).toFixed(2)}
-                        </p>
-                      </div>
-
-                      <AddToCart
-                        addToCart={addToCart}
-                        product={product}
-                        showQuantity={false}
-                        showBuyNow={false}
+                  {/* Rating */}
+                  <div className="flex items-center space-x-1 mb-3">
+                    {" "}
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-4 h-4 text-amber-500 fill-current"
                       />
-                    </div>
+                    ))}
+                    <span className="ml-1.5 text-xs text-gray-500">
+                      ({product.reviews} reviews)
+                    </span>
+                  </div>
+
+                  <div className="flex items-baseline space-x-2 mb-4">
+                    {" "}
+                    <p className="text-xl font-bold text-gray-600">
+                      ${product.price}
+                    </p>
+                    <p className="text-xs text-gray-400 line-through">
+                      ${(product.price + 7).toFixed(2)}
+                    </p>
+                  </div>
+
+                  <div className="flex-grow" />
+
+                  <div className="mt-auto pt-2 max-w-[200px]">
+                    <AddToCart
+                      addToCart={addToCart}
+                      product={product}
+                      showQuantity={false}
+                      showBuyNow={false}
+                    />
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      </MaxWidthWrapper>
-    </section>
+      </div>
+    </div>
   );
 };
 

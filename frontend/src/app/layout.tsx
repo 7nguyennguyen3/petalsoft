@@ -4,9 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
-import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ChatPopup from "@/components/Chatbot";
+import { Toaster } from "@/components/ui/sonner";
 
 const recursive = Recursive({ subsets: ["latin"] });
 
