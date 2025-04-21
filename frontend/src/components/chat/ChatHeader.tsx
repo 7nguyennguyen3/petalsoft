@@ -30,12 +30,12 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         <Bot className="h-6 w-6 text-blue-600 flex-shrink-0" />
         <h2 className="text-lg font-semibold text-foreground">Assistant</h2>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-3">
         <TooltipIconButton
           tooltip="Toggle chat history"
           onClick={onToggleHistory}
           className={cn(
-            "rounded-full w-8 h-8",
+            "rounded-full w-[22px] h-[22px]",
             "text-foreground",
             isHistoryOpen ? "bg-accent" : "hover:bg-accent"
           )}
@@ -49,7 +49,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
           onClick={onCreateNewChat}
           disabled={isNewChatDisabled}
           className={cn(
-            "rounded-full w-8 h-8", // Base size & shape
+            "rounded-full w-[22px] h-[22px]", // Base size & shape
             "text-foreground hover:bg-accent", // Theme text & hover
             "disabled:opacity-50 disabled:cursor-not-allowed" // Disabled style
           )}
@@ -62,7 +62,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
           tooltip="Close chat"
           onClick={onCloseChat}
           className={cn(
-            "rounded-full w-8 h-8", // Base size & shape
+            "rounded-full w-[22px] h-[22px]", // Base size & shape
             "text-foreground", // Theme text color
             // Destructive hover effect using theme colors
             "hover:bg-destructive/10 hover:text-destructive"

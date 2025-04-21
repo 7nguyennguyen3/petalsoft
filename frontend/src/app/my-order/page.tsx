@@ -1,23 +1,24 @@
+"use client"; // Mark this component as a Client Component
+
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import CustomerOrderTable from "./CustomerOrderTable";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { useAuthStore } from "../_store/useAuthStore";
 
-const CustomerOrderPage = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+const CustomerOrderPage = () => {
+  const { authenticated, userId } = useAuthStore();
 
   return (
     <div className="grainy-light">
       <MaxWidthWrapper>
-        {user ? (
+        {authenticated && userId ? (
           <div className="min-h-screen flex flex-col gap-5 pt-40 mx-auto">
-            <h1 className="text-3xl gra-p-b font-semibold">My Order</h1>
-            <CustomerOrderTable userId={user.id} />
+            <h1 className="text-3xl gra-p-b font-semibold">My Orders</h1>
+            <CustomerOrderTable userId={userId} />
           </div>
         ) : (
           <div className="min-h-screen flex flex-col gap-5 pt-40 mx-auto">
             <h1 className="text-3xl gra-p-b font-semibold">
-              Please login to see your order.
+              Please login to see your orders.
             </h1>
           </div>
         )}
